@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 // Home
@@ -60,8 +62,21 @@ Route::prefix('aplikasi')->group(function () {
     })->name('aplikasi.repository');
 
     Route::get('/login', function () {
-        return redirect('/');
+        return redirect()->route('login');
     })->name('aplikasi.login');
+});
+
+// Authentication Routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Admin Routes
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // PPEPP Menu

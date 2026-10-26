@@ -78,7 +78,7 @@
                                     <li><a href="https://spmi.horizon.ac.id/login" target="_blank" rel="noopener noreferrer">AQA</a></li>
                                     <li><a href="https://lms.horizon.ac.id/" target="_blank" rel="noopener noreferrer">LMS</a></li>
                                     <li><a href="#">Repository</a></li>
-                                    <li><a href="#">Login</a></li>
+                                    <li><a href="{{ route('login') }}">Login</a></li>
                                 </ul>
                             </li>
 
@@ -136,7 +136,7 @@
                                                 <li><a href="https://spmi.horizon.ac.id/login" target="_blank" rel="noopener noreferrer">AQA</a></li>
                                                 <li><a href="https://lms.horizon.ac.id/" target="_blank" rel="noopener noreferrer">LMS</a></li>
                                                 <li><a href="#">Repository</a></li>
-                                                <li><a href="#">Login</a></li>
+                                                <li><a href="{{ route('login') }}">Login</a></li>
                                             </ul>
                                         </li>
                                         <li><a class="has-arrow" href="#ppepp">PPEPP</a>
