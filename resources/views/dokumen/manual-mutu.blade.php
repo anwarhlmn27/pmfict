@@ -85,7 +85,7 @@
                             <h4 class="font-weight-bold text-dark mb-1"><i class="fas fa-folder-open text-info mr-2"></i> Daftar Dokumen Manual Mutu</h4>
                             <small class="text-muted">Unduh pedoman prosedur siklus PPEPP Fakultas Informatika & Komputer</small>
                         </div>
-                        <span class="badge badge-light border px-3 py-2 text-dark mt-2 mt-sm-0">Total: 5 Dokumen</span>
+                        <span class="badge badge-light border px-3 py-2 text-dark mt-2 mt-sm-0">Total: {{ ($documents ?? collect())->count() }} Dokumen</span>
                     </div>
 
                     <div class="table-responsive">
@@ -101,66 +101,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center font-weight-bold">1</td>
-                                    <td><span class="badge badge-info px-2 py-1">MNL-PPEPP-01</span></td>
-                                    <td class="font-weight-bold text-dark">Manual Penetapan Standar Mutu (P)</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Penyusunan Standar</td>
-                                    <td class="text-center text-muted">1.8 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-info px-3" onclick="alert('Mengunduh Manual Penetapan')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">2</td>
-                                    <td><span class="badge badge-info px-2 py-1">MNL-PPEPP-02</span></td>
-                                    <td class="font-weight-bold text-dark">Manual Pelaksanaan Standar Mutu (P)</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Implementasi Tridharma</td>
-                                    <td class="text-center text-muted">2.1 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-info px-3" onclick="alert('Mengunduh Manual Pelaksanaan')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">3</td>
-                                    <td><span class="badge badge-info px-2 py-1">MNL-PPEPP-03</span></td>
-                                    <td class="font-weight-bold text-dark">Manual Evaluasi & Audit Mutu Internal (E)</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Instrumen AMI</td>
-                                    <td class="text-center text-muted">3.4 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-info px-3" onclick="alert('Mengunduh Manual Evaluasi')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">4</td>
-                                    <td><span class="badge badge-info px-2 py-1">MNL-PPEPP-04</span></td>
-                                    <td class="font-weight-bold text-dark">Manual Pengendalian Standar & RTM (P)</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Tata Cara RTM</td>
-                                    <td class="text-center text-muted">1.6 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-info px-3" onclick="alert('Mengunduh Manual Pengendalian')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">5</td>
-                                    <td><span class="badge badge-info px-2 py-1">MNL-PPEPP-05</span></td>
-                                    <td class="font-weight-bold text-dark">Manual Peningkatan Standar Mutu (P)</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Kaizen Mutu</td>
-                                    <td class="text-center text-muted">1.4 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-info px-3" onclick="alert('Mengunduh Manual Peningkatan')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
+                                @forelse($documents ?? [] as $index => $doc)
+                                    <tr>
+                                        <td class="text-center font-weight-bold">{{ $index + 1 }}</td>
+                                        <td><span class="badge badge-info px-2 py-1">{{ $doc->code }}</span></td>
+                                        <td class="font-weight-bold text-dark">{{ $doc->title }}</td>
+                                        <td><i class="{{ $doc->fileIconClass() }} mr-1"></i> {{ $doc->file_type }}{{ $doc->edition ? ' • ' . $doc->edition : '' }}</td>
+                                        <td class="text-center text-muted">{{ $doc->file_size ?? '-' }}</td>
+                                        <td class="text-center">
+                                            @if($doc->fileUrl() !== '#')
+                                                <a href="{{ $doc->fileUrl() }}" target="_blank" download class="btn btn-sm btn-info px-3">
+                                                    <i class="fas fa-download mr-1"></i> Unduh
+                                                </a>
+                                            @else
+                                                <button class="btn btn-sm btn-info px-3" onclick="alert('Mengunduh {{ addslashes($doc->title) }}')">
+                                                    <i class="fas fa-download mr-1"></i> Unduh
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">Belum ada dokumen manual mutu.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

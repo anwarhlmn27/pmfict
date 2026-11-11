@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use App\Models\HeroSlider;
 use App\Models\News;
+use App\Models\OrganizationStructure;
+use App\Models\QualityDocument;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +30,10 @@ class DashboardController extends Controller
         ];
 
         $documents = Schema::hasTable('quality_documents')
-            ? DB::table('quality_documents')->orderBy('category')->orderBy('sort_order')->limit(10)->get()
+            ? QualityDocument::orderByRaw("CASE category WHEN 'kebijakan' THEN 1 WHEN 'standar' THEN 2 WHEN 'manual' THEN 3 WHEN 'formulir' THEN 4 ELSE 5 END")
+                ->orderBy('sort_order')
+                ->orderBy('id')
+                ->get()
             : collect();
 
         $newsList = Schema::hasTable('news')
@@ -51,6 +56,10 @@ class DashboardController extends Controller
             ? Gallery::orderBy('sort_order')->orderBy('id')->get()
             : collect();
 
+        $organizationStructures = Schema::hasTable('organization_structures')
+            ? OrganizationStructure::orderBy('sort_order')->orderBy('id')->get()
+            : collect();
+
         return view('admin.dashboard', [
             'user' => $request->user(),
             'stats' => $stats,
@@ -60,6 +69,7 @@ class DashboardController extends Controller
             'users' => $users,
             'heroSliders' => $heroSliders,
             'galleries' => $galleries,
+            'organizationStructures' => $organizationStructures,
         ]);
     }
 }

@@ -41,6 +41,12 @@ class NewsCrudTest extends TestCase
         $homeResponse = $this->get('/');
         $homeResponse->assertStatus(200);
         $homeResponse->assertSee('Sosialisasi Instrumen Akreditasi LAMINFOKOM 2026');
+        $homeResponse->assertSee('Lihat Detail');
+
+        $detailResponse = $this->get(route('berita.detail', 'sosialisasi-instrumen-akreditasi-laminfokom-2026'));
+        $detailResponse->assertStatus(200);
+        $detailResponse->assertSee('Sosialisasi Instrumen Akreditasi LAMINFOKOM 2026');
+        $detailResponse->assertSee('Isi lengkap berita sosialisasi instrumen akreditasi LAMINFOKOM untuk seluruh dosen FICT.');
     }
 
     public function test_admin_can_update_news_article(): void

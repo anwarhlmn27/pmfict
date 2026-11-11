@@ -90,8 +90,8 @@ return new class extends Migration
         // 6. Tabel Hero Slider Halaman Utama
         Schema::create('hero_sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('badge_text')->nullable();
             $table->string('title');
+            $table->string('badge_text')->nullable();
             $table->text('description')->nullable();
             $table->string('image_path');
             $table->string('primary_btn_text', 100)->nullable();

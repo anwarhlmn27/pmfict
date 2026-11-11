@@ -85,7 +85,7 @@
                             <h4 class="font-weight-bold text-dark mb-1"><i class="fas fa-folder-open text-success mr-2"></i> Daftar Dokumen Formulir Mutu</h4>
                             <small class="text-muted">Unduh template dan rekaman formulir operasional SPMI FICT</small>
                         </div>
-                        <span class="badge badge-light border px-3 py-2 text-dark mt-2 mt-sm-0">Total: 5 Dokumen</span>
+                        <span class="badge badge-light border px-3 py-2 text-dark mt-2 mt-sm-0">Total: {{ ($documents ?? collect())->count() }} Dokumen</span>
                     </div>
 
                     <div class="table-responsive">
@@ -101,66 +101,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center font-weight-bold">1</td>
-                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-01</span></td>
-                                    <td class="font-weight-bold text-dark">Formulir Rencana Pembelajaran Semester (RPS) & Kontrak Kuliah OBE</td>
-                                    <td><i class="far fa-file-word text-primary mr-1"></i> DOCX / PDF • 2026</td>
-                                    <td class="text-center text-muted">850 KB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir RPS & Kontrak Kuliah OBE')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">2</td>
-                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-02</span></td>
-                                    <td class="font-weight-bold text-dark">Formulir Monitoring dan Evaluasi (Monev) Ketercapaian Perkuliahan</td>
-                                    <td><i class="far fa-file-excel text-success mr-1"></i> XLSX / PDF • 2026</td>
-                                    <td class="text-center text-muted">620 KB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir Monev Perkuliahan')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">3</td>
-                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-03</span></td>
-                                    <td class="font-weight-bold text-dark">Formulir Daftar Tilik (Checklist) & Instrumen Audit Mutu Internal (AMI)</td>
-                                    <td><i class="far fa-file-word text-primary mr-1"></i> DOCX / PDF • 2026</td>
-                                    <td class="text-center text-muted">1.2 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir Daftar Tilik AMI')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">4</td>
-                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-04</span></td>
-                                    <td class="font-weight-bold text-dark">Formulir Permintaan Tindakan Koreksi (PTK) Temuan Audit</td>
-                                    <td><i class="far fa-file-word text-primary mr-1"></i> DOCX / PDF • 2026</td>
-                                    <td class="text-center text-muted">540 KB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir Permintaan Tindakan Koreksi')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">5</td>
-                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-05</span></td>
-                                    <td class="font-weight-bold text-dark">Formulir Berita Acara & Risalah Rapat Tinjauan Manajemen (RTM)</td>
-                                    <td><i class="far fa-file-word text-primary mr-1"></i> DOCX / PDF • 2026</td>
-                                    <td class="text-center text-muted">710 KB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir Berita Acara RTM')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
+                                @forelse($documents ?? [] as $index => $doc)
+                                    <tr>
+                                        <td class="text-center font-weight-bold">{{ $index + 1 }}</td>
+                                        <td><span class="badge badge-success px-2 py-1">{{ $doc->code }}</span></td>
+                                        <td class="font-weight-bold text-dark">{{ $doc->title }}</td>
+                                        <td><i class="{{ $doc->fileIconClass() }} mr-1"></i> {{ $doc->file_type }}{{ $doc->edition ? ' • ' . $doc->edition : '' }}</td>
+                                        <td class="text-center text-muted">{{ $doc->file_size ?? '-' }}</td>
+                                        <td class="text-center">
+                                            @if($doc->fileUrl() !== '#')
+                                                <a href="{{ $doc->fileUrl() }}" target="_blank" download class="btn btn-sm btn-success px-3">
+                                                    <i class="fas fa-download mr-1"></i> Unduh
+                                                </a>
+                                            @else
+                                                <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh {{ addslashes($doc->title) }}')">
+                                                    <i class="fas fa-download mr-1"></i> Unduh
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">Belum ada dokumen formulir mutu.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

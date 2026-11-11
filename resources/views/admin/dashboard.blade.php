@@ -432,7 +432,7 @@
                                             <tr>
                                                 <td class="font-weight-bold"><i class="fas fa-shield-alt text-primary mr-2"></i> Dokumen Kebijakan Mutu</td>
                                                 <td><span class="badge badge-primary">KBJ-SPMI</span></td>
-                                                <td class="text-center">5 Dokumen</td>
+                                                <td class="text-center">{{ ($documents ?? collect())->where('category', 'kebijakan')->count() }} Dokumen</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('download.kebijakan-mutu') }}" target="_blank" class="btn btn-outline-primary btn-sm py-1 px-2" style="font-size: 12px;">
                                                         Lihat Halaman <i class="fal fa-external-link ml-1"></i>
@@ -442,7 +442,7 @@
                                             <tr>
                                                 <td class="font-weight-bold"><i class="fas fa-file-alt text-primary mr-2"></i> Dokumen Standar Mutu</td>
                                                 <td><span class="badge badge-primary">STD-SPMI</span></td>
-                                                <td class="text-center">5 Dokumen</td>
+                                                <td class="text-center">{{ ($documents ?? collect())->where('category', 'standar')->count() }} Dokumen</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('download.standar-mutu') }}" target="_blank" class="btn btn-outline-primary btn-sm py-1 px-2" style="font-size: 12px;">
                                                         Lihat Halaman <i class="fal fa-external-link ml-1"></i>
@@ -452,7 +452,7 @@
                                             <tr>
                                                 <td class="font-weight-bold"><i class="fas fa-book text-info mr-2"></i> Dokumen Manual Mutu (PPEPP)</td>
                                                 <td><span class="badge badge-info">MNL-PPEPP</span></td>
-                                                <td class="text-center">5 Dokumen</td>
+                                                <td class="text-center">{{ ($documents ?? collect())->where('category', 'manual')->count() }} Dokumen</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('download.manual-mutu') }}" target="_blank" class="btn btn-outline-info btn-sm py-1 px-2" style="font-size: 12px;">
                                                         Lihat Halaman <i class="fal fa-external-link ml-1"></i>
@@ -462,7 +462,7 @@
                                             <tr>
                                                 <td class="font-weight-bold"><i class="fas fa-clipboard-list text-success mr-2"></i> Dokumen Formulir Mutu</td>
                                                 <td><span class="badge badge-success">FRM-SPMI</span></td>
-                                                <td class="text-center">5 Dokumen</td>
+                                                <td class="text-center">{{ ($documents ?? collect())->where('category', 'formulir')->count() }} Dokumen</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('download.formulir-mutu') }}" target="_blank" class="btn btn-outline-success btn-sm py-1 px-2" style="font-size: 12px;">
                                                         Lihat Halaman <i class="fal fa-external-link ml-1"></i>
@@ -530,12 +530,21 @@
                                 <h6 class="font-weight-bold mb-0">Data Dokumen Mutu SPMI (<code>quality_documents</code>)</h6>
                                 <small class="text-muted">Daftar berkas Kebijakan Mutu, Standar Mutu, Manual Mutu, dan Formulir Mutu</small>
                             </div>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalTambahDokumen">
-                                <i class="fal fa-plus mr-1"></i> Tambah Dokumen Baru
-                            </button>
+                            <div class="d-flex flex-wrap align-items-center" style="gap: 8px;">
+                                <select id="filterKategoriDokumen" class="form-control form-control-admin form-control-sm" style="width: auto; min-width: 175px;">
+                                    <option value="all">Semua Kategori ({{ ($documents ?? collect())->count() }})</option>
+                                    <option value="kebijakan">Kebijakan Mutu ({{ ($documents ?? collect())->where('category', 'kebijakan')->count() }})</option>
+                                    <option value="standar">Standar Mutu ({{ ($documents ?? collect())->where('category', 'standar')->count() }})</option>
+                                    <option value="manual">Manual Mutu ({{ ($documents ?? collect())->where('category', 'manual')->count() }})</option>
+                                    <option value="formulir">Formulir Mutu ({{ ($documents ?? collect())->where('category', 'formulir')->count() }})</option>
+                                </select>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalTambahDokumen">
+                                    <i class="fal fa-plus mr-1"></i> Tambah Dokumen Baru
+                                </button>
+                            </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-admin">
+                            <table class="table table-admin" id="tabelDokumenMutu">
                                 <thead>
                                     <tr>
                                         <th style="width: 50px;">No</th>
@@ -544,58 +553,76 @@
                                         <th>Judul Dokumen</th>
                                         <th>Edisi / Format</th>
                                         <th>Ukuran</th>
-                                        <th class="text-center">Aksi</th>
+                                        <th>Status</th>
+                                        <th class="text-center" style="width: 110px;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><span class="badge badge-primary">KBJ-SPMI-01</span></td>
-                                        <td>Kebijakan Mutu</td>
-                                        <td class="font-weight-bold">Buku Kebijakan Sistem Penjaminan Mutu Internal (SPMI) FICT</td>
-                                        <td>PDF • Revisi 2026</td>
-                                        <td>2.6 MB</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-outline-primary btn-sm py-0 px-2"><i class="fal fa-edit"></i></button>
-                                            <button class="btn btn-outline-danger btn-sm py-0 px-2"><i class="fal fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td><span class="badge badge-primary">STD-SPMI-01</span></td>
-                                        <td>Standar Mutu</td>
-                                        <td class="font-weight-bold">Standar Kompetensi Lulusan (SKL) & CPL</td>
-                                        <td>PDF • Versi 2026</td>
-                                        <td>2.4 MB</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-outline-primary btn-sm py-0 px-2"><i class="fal fa-edit"></i></button>
-                                            <button class="btn btn-outline-danger btn-sm py-0 px-2"><i class="fal fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td><span class="badge badge-info">MNL-PPEPP-01</span></td>
-                                        <td>Manual Mutu</td>
-                                        <td class="font-weight-bold">Manual Penetapan Standar Mutu (P)</td>
-                                        <td>PDF • Versi 2026</td>
-                                        <td>1.8 MB</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-outline-primary btn-sm py-0 px-2"><i class="fal fa-edit"></i></button>
-                                            <button class="btn btn-outline-danger btn-sm py-0 px-2"><i class="fal fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td><span class="badge badge-success">FRM-SPMI-01</span></td>
-                                        <td>Formulir Mutu</td>
-                                        <td class="font-weight-bold">Formulir Rencana Pembelajaran Semester (RPS) & Kontrak Kuliah OBE</td>
-                                        <td>DOCX • Versi 2026</td>
-                                        <td>850 KB</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-outline-primary btn-sm py-0 px-2"><i class="fal fa-edit"></i></button>
-                                            <button class="btn btn-outline-danger btn-sm py-0 px-2"><i class="fal fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    @forelse($documents ?? [] as $index => $doc)
+                                        <tr data-category="{{ $doc->category }}">
+                                            <td class="font-weight-bold">{{ $index + 1 }}</td>
+                                            <td><span class="badge {{ $doc->badgeClass() }}">{{ $doc->code }}</span></td>
+                                            <td>{{ $doc->categoryLabel() }}</td>
+                                            <td>
+                                                <div class="font-weight-bold text-dark">{{ $doc->title }}</div>
+                                                @if(!empty($doc->file_path) && $doc->file_path !== '#')
+                                                    <small class="text-muted">
+                                                        <a href="{{ $doc->fileUrl() }}" target="_blank" class="text-primary">
+                                                            <i class="fal fa-paperclip mr-1"></i>{{ $doc->file_path }}
+                                                        </a>
+                                                    </small>
+                                                @endif
+                                            </td>
+                                            <td>{{ $doc->file_type }}{{ $doc->edition ? ' • ' . $doc->edition : '' }}</td>
+                                            <td>{{ $doc->file_size ?? '-' }}</td>
+                                            <td>
+                                                @if($doc->is_active)
+                                                    <span class="badge badge-success">Aktif</span>
+                                                @else
+                                                    <span class="badge badge-secondary">Nonaktif</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="d-inline-flex align-items-center" style="gap: 4px;">
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-outline-primary btn-sm py-1 px-2 btn-edit-dokumen"
+                                                        data-toggle="modal"
+                                                        data-target="#modalEditDokumen"
+                                                        data-action="{{ route('admin.quality-documents.update', $doc) }}"
+                                                        data-category="{{ $doc->category }}"
+                                                        data-code="{{ $doc->code }}"
+                                                        data-title="{{ $doc->title }}"
+                                                        data-edition="{{ $doc->edition }}"
+                                                        data-file_type="{{ $doc->file_type }}"
+                                                        data-file_size="{{ $doc->file_size }}"
+                                                        data-file_path="{{ $doc->file_path }}"
+                                                        data-sort_order="{{ $doc->sort_order }}"
+                                                        data-is_active="{{ $doc->is_active ? '1' : '0' }}"
+                                                        title="Edit Dokumen"
+                                                    >
+                                                        <i class="fal fa-edit"></i>
+                                                    </button>
+                                                    <form
+                                                        action="{{ route('admin.quality-documents.destroy', $doc) }}"
+                                                        method="POST"
+                                                        class="d-inline m-0 form-delete-dokumen"
+                                                        data-title="{{ $doc->code }} - {{ $doc->title }}"
+                                                    >
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm py-1 px-2" title="Hapus Dokumen">
+                                                            <i class="fal fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="8" class="text-center text-muted py-4">Belum ada data dokumen mutu. Silakan klik <strong>Tambah Dokumen Baru</strong>.</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -845,44 +872,79 @@
                         <div class="panel-header">
                             <div>
                                 <h6 class="font-weight-bold mb-0">Struktur Organisasi Unit Mutu (<code>organization_structures</code>)</h6>
-                                <small class="text-muted">Susunan tata kelola Penjaminan Mutu FICT</small>
+                                <small class="text-muted">Kelola susunan jabatan struktural & tanggung jawab tata kelola Penjaminan Mutu FICT</small>
                             </div>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalTambahStruktur">
+                                <i class="fal fa-plus mr-1"></i> Tambah Jabatan
+                            </button>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-admin">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
+                                        <th style="width: 70px;">Urutan</th>
                                         <th>Jabatan Struktural</th>
+                                        <th>Nama Pejabat / Personil</th>
                                         <th>Fungsi & Tanggung Jawab</th>
                                         <th>Ikon</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center" style="width: 130px;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td class="font-weight-bold">Dekan FICT</td>
-                                        <td>Pengarah & Penanggung Jawab SPMI Fakultas</td>
-                                        <td><code>fas fa-user-tie</code></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td class="font-weight-bold">Ketua Gugus Mutu</td>
-                                        <td>Koordinator Penjaminan Mutu & Standarisasi</td>
-                                        <td><code>fas fa-award</code></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td class="font-weight-bold">Tim Auditor AMI</td>
-                                        <td>Pelaksana Audit Kepatuhan Perkuliahan</td>
-                                        <td><code>fas fa-clipboard-check</code></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td class="font-weight-bold">GKM Prodi Informatika & SI</td>
-                                        <td>Gugus Kendali Mutu di tingkat Program Studi</td>
-                                        <td><code>fas fa-laptop-code</code></td>
-                                    </tr>
+                                    @forelse($organizationStructures ?? [] as $org)
+                                        <tr>
+                                            <td class="font-weight-bold">#{{ $org->sort_order }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $org->position_title }}</td>
+                                            <td>{{ $org->person_name ?: '-' }}</td>
+                                            <td>{{ $org->role_description ?: '-' }}</td>
+                                            <td>
+                                                <span class="mr-1 text-primary"><i class="{{ $org->icon_class }}"></i></span>
+                                                <code>{{ $org->icon_class }}</code>
+                                            </td>
+                                            <td class="text-center">
+                                                @if($org->is_active)
+                                                    <span class="badge badge-soft-success">Aktif</span>
+                                                @else
+                                                    <span class="badge badge-secondary">Nonaktif</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="d-inline-flex align-items-center">
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-outline-primary mr-1 btn-edit-struktur"
+                                                            title="Edit Jabatan"
+                                                            data-toggle="modal"
+                                                            data-target="#modalEditStruktur"
+                                                            data-action="{{ route('admin.organization-structures.update', $org) }}"
+                                                            data-position_title="{{ $org->position_title }}"
+                                                            data-person_name="{{ $org->person_name }}"
+                                                            data-role_description="{{ $org->role_description }}"
+                                                            data-icon_class="{{ $org->icon_class }}"
+                                                            data-sort_order="{{ $org->sort_order }}"
+                                                            data-is_active="{{ $org->is_active ? '1' : '0' }}">
+                                                        <i class="fal fa-edit"></i>
+                                                    </button>
+                                                    <form action="{{ route('admin.organization-structures.destroy', $org) }}"
+                                                          method="POST"
+                                                          class="d-inline m-0 form-delete-struktur"
+                                                          data-title="{{ $org->position_title }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus Jabatan">
+                                                            <i class="fal fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted py-4">
+                                                Belum ada data struktur organisasi di tabel <code>organization_structures</code>. Klik tombol <strong>+ Tambah Jabatan</strong> untuk menambahkan.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -1146,41 +1208,162 @@
 
 <!-- ================= MODAL TAMBAH DOKUMEN MUTU ================= -->
 <div class="modal fade" id="modalTambahDokumen" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content border-0 shadow">
             <div class="modal-header bg-light">
-                <h6 class="modal-title font-weight-bold">Tambah Dokumen Mutu Baru</h6>
+                <h6 class="modal-title font-weight-bold"><i class="fal fa-file-alt text-primary mr-1"></i> Tambah Dokumen Mutu Baru</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form onsubmit="event.preventDefault(); alert('Dokumen berhasil ditambahkan!'); $('#modalTambahDokumen').modal('hide');">
+            <form action="{{ route('admin.quality-documents.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="_tab" value="dokumen">
                 <div class="modal-body">
-                    <div class="form-group mb-3">
-                        <label class="font-weight-bold small">Kategori Dokumen</label>
-                        <select class="form-control form-control-admin" required>
-                            <option value="kebijakan">Dokumen Kebijakan Mutu</option>
-                            <option value="standar">Dokumen Standar Mutu</option>
-                            <option value="manual">Dokumen Manual Mutu (PPEPP)</option>
-                            <option value="formulir">Dokumen Formulir Mutu</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="font-weight-bold small">Kode Dokumen</label>
-                        <input type="text" class="form-control form-control-admin" placeholder="Contoh: STD-SPMI-06" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="font-weight-bold small">Nama / Judul Dokumen</label>
-                        <input type="text" class="form-control form-control-admin" placeholder="Masukkan judul dokumen mutu" required>
-                    </div>
-                    <div class="form-group mb-0">
-                        <label class="font-weight-bold small">Edisi / Versi</label>
-                        <input type="text" class="form-control form-control-admin" value="Versi 2026">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Kategori Dokumen <span class="text-danger">*</span></label>
+                            <select name="category" id="create_dokumen_category" class="form-control form-control-admin" required>
+                                <option value="kebijakan" {{ old('category') === 'kebijakan' ? 'selected' : '' }}>Dokumen Kebijakan Mutu</option>
+                                <option value="standar" {{ old('category') === 'standar' ? 'selected' : '' }}>Dokumen Standar Mutu</option>
+                                <option value="manual" {{ old('category') === 'manual' ? 'selected' : '' }}>Dokumen Manual Mutu (PPEPP)</option>
+                                <option value="formulir" {{ old('category') === 'formulir' ? 'selected' : '' }}>Dokumen Formulir Mutu</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Kode Dokumen <span class="text-danger">*</span></label>
+                            <input type="text" name="code" id="create_dokumen_code" class="form-control form-control-admin" value="{{ old('code') }}" placeholder="Contoh: KBJ-SPMI-06 / STD-SPMI-06" required>
+                        </div>
+                        <div class="col-12 form-group mb-3">
+                            <label class="font-weight-bold small">Nama / Judul Dokumen <span class="text-danger">*</span></label>
+                            <input type="text" name="title" class="form-control form-control-admin" value="{{ old('title') }}" placeholder="Masukkan judul dokumen mutu" required>
+                        </div>
+                        <div class="col-md-4 form-group mb-3">
+                            <label class="font-weight-bold small">Format Berkas</label>
+                            <select name="file_type" class="form-control form-control-admin">
+                                @foreach(['PDF', 'DOCX', 'XLSX', 'DOCX / PDF', 'XLSX / PDF'] as $formatOpt)
+                                    <option value="{{ $formatOpt }}" {{ old('file_type', 'PDF') === $formatOpt ? 'selected' : '' }}>{{ $formatOpt }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group mb-3">
+                            <label class="font-weight-bold small">Edisi / Versi</label>
+                            <input type="text" name="edition" class="form-control form-control-admin" value="{{ old('edition', 'Versi 2026') }}" placeholder="Contoh: Revisi 2026 / Versi 2026">
+                        </div>
+                        <div class="col-md-4 form-group mb-3">
+                            <label class="font-weight-bold small">Ukuran Berkas</label>
+                            <input type="text" name="file_size" class="form-control form-control-admin" value="{{ old('file_size') }}" placeholder="Contoh: 1.8 MB / 850 KB">
+                            <small class="text-muted">Otomatis terisi jika upload berkas</small>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Upload Berkas Dokumen (Opsional)</label>
+                            <input type="file" name="document_file" class="form-control-file form-control-admin p-1" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                            <small class="text-muted">Format: PDF, DOC, DOCX, XLS, XLSX (Maks. 10MB)</small>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Atau Tautan / Path Berkas</label>
+                            <input type="text" name="file_path" class="form-control form-control-admin" value="{{ old('file_path', '#') }}" placeholder="Contoh: # atau URL Google Drive">
+                        </div>
+                        <div class="col-md-6 form-group mb-0">
+                            <label class="font-weight-bold small">Urutan Tampil (Sort Order)</label>
+                            <input type="number" name="sort_order" class="form-control form-control-admin" value="{{ old('sort_order', 6) }}" min="0">
+                        </div>
+                        <div class="col-md-6 form-group mb-0">
+                            <label class="font-weight-bold small">Status Dokumen</label>
+                            <select name="is_active" class="form-control form-control-admin">
+                                <option value="1" selected>Aktif (Tampilkan di Halaman Unduhan)</option>
+                                <option value="0">Nonaktif (Sembunyikan)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary btn-sm font-weight-bold">Simpan Dokumen</button>
+                    <button type="submit" class="btn btn-primary btn-sm font-weight-bold">
+                        <i class="fal fa-save mr-1"></i> Simpan Dokumen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL EDIT DOKUMEN MUTU ================= -->
+<div class="modal fade" id="modalEditDokumen" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-light">
+                <h6 class="modal-title font-weight-bold"><i class="fal fa-edit text-primary mr-1"></i> Edit Dokumen Mutu</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formEditDokumen" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="_tab" value="dokumen">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Kategori Dokumen <span class="text-danger">*</span></label>
+                            <select name="category" id="edit_dokumen_category" class="form-control form-control-admin" required>
+                                <option value="kebijakan">Dokumen Kebijakan Mutu</option>
+                                <option value="standar">Dokumen Standar Mutu</option>
+                                <option value="manual">Dokumen Manual Mutu (PPEPP)</option>
+                                <option value="formulir">Dokumen Formulir Mutu</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Kode Dokumen <span class="text-danger">*</span></label>
+                            <input type="text" name="code" id="edit_dokumen_code" class="form-control form-control-admin" required>
+                        </div>
+                        <div class="col-12 form-group mb-3">
+                            <label class="font-weight-bold small">Nama / Judul Dokumen <span class="text-danger">*</span></label>
+                            <input type="text" name="title" id="edit_dokumen_title" class="form-control form-control-admin" required>
+                        </div>
+                        <div class="col-md-4 form-group mb-3">
+                            <label class="font-weight-bold small">Format Berkas</label>
+                            <select name="file_type" id="edit_dokumen_file_type" class="form-control form-control-admin">
+                                @foreach(['PDF', 'DOCX', 'XLSX', 'DOCX / PDF', 'XLSX / PDF'] as $formatOpt)
+                                    <option value="{{ $formatOpt }}">{{ $formatOpt }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group mb-3">
+                            <label class="font-weight-bold small">Edisi / Versi</label>
+                            <input type="text" name="edition" id="edit_dokumen_edition" class="form-control form-control-admin">
+                        </div>
+                        <div class="col-md-4 form-group mb-3">
+                            <label class="font-weight-bold small">Ukuran Berkas</label>
+                            <input type="text" name="file_size" id="edit_dokumen_file_size" class="form-control form-control-admin">
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Ganti Berkas Dokumen (Opsional)</label>
+                            <input type="file" name="document_file" class="form-control-file form-control-admin p-1" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                            <small class="text-muted">Biarkan kosong jika tidak ingin mengganti berkas</small>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Tautan / Path Berkas Saat Ini</label>
+                            <input type="text" name="file_path" id="edit_dokumen_file_path" class="form-control form-control-admin">
+                        </div>
+                        <div class="col-md-6 form-group mb-0">
+                            <label class="font-weight-bold small">Urutan Tampil (Sort Order)</label>
+                            <input type="number" name="sort_order" id="edit_dokumen_sort_order" class="form-control form-control-admin" min="0">
+                        </div>
+                        <div class="col-md-6 form-group mb-0">
+                            <label class="font-weight-bold small">Status Dokumen</label>
+                            <select name="is_active" id="edit_dokumen_is_active" class="form-control form-control-admin">
+                                <option value="1">Aktif (Tampilkan di Halaman Unduhan)</option>
+                                <option value="0">Nonaktif (Sembunyikan)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-sm font-weight-bold">
+                        <i class="fal fa-save mr-1"></i> Simpan Perubahan
+                    </button>
                 </div>
             </form>
         </div>
@@ -1614,12 +1797,150 @@
     </div>
 </div>
 
+<!-- ================= MODAL TAMBAH STRUKTUR ORGANISASI ================= -->
+@php
+    $presetOrgIcons = [
+        'fas fa-user-tie' => 'fas fa-user-tie (Pimpinan / Dekan)',
+        'fas fa-award' => 'fas fa-award (Ketua Gugus Mutu)',
+        'fas fa-clipboard-check' => 'fas fa-clipboard-check (Auditor AMI)',
+        'fas fa-laptop-code' => 'fas fa-laptop-code (GKM Prodi ICT)',
+        'fas fa-users-cog' => 'fas fa-users-cog (Koordinator / Tim)',
+        'fas fa-sitemap' => 'fas fa-sitemap (Struktur / Unit)',
+        'fas fa-shield-alt' => 'fas fa-shield-alt (Penjaminan Mutu)',
+        'fas fa-graduation-cap' => 'fas fa-graduation-cap (Akademik)',
+        'fas fa-chalkboard-teacher' => 'fas fa-chalkboard-teacher (Dosen / Pengajar)',
+        'fas fa-check-double' => 'fas fa-check-double (Evaluasi & Pengendalian)',
+    ];
+@endphp
+<div class="modal fade" id="modalTambahStruktur" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-light">
+                <h6 class="modal-title font-weight-bold"><i class="fal fa-sitemap text-primary mr-1"></i> Tambah Jabatan Struktur Organisasi</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('admin.organization-structures.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="_tab" value="struktur">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Jabatan Struktural <span class="text-danger">*</span></label>
+                            <input type="text" name="position_title" class="form-control form-control-admin" value="{{ old('position_title') }}" placeholder="Contoh: Dekan FICT / Ketua Gugus Mutu" required>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Nama Pejabat / Personil (Opsional)</label>
+                            <input type="text" name="person_name" class="form-control form-control-admin" value="{{ old('person_name') }}" placeholder="Contoh: Dr. Nama Lengkap, M.Kom.">
+                        </div>
+                        <div class="col-12 form-group mb-3">
+                            <label class="font-weight-bold small">Fungsi & Tanggung Jawab</label>
+                            <input type="text" name="role_description" class="form-control form-control-admin" value="{{ old('role_description') }}" placeholder="Contoh: Pengarah & Penanggung Jawab SPMI Fakultas">
+                        </div>
+                        <div class="col-md-4 form-group mb-0">
+                            <label class="font-weight-bold small">Ikon Jabatan <span class="text-danger">*</span></label>
+                            <select name="icon_class" class="form-control form-control-admin" required>
+                                @foreach($presetOrgIcons as $iconVal => $iconLabel)
+                                    <option value="{{ $iconVal }}" {{ old('icon_class', 'fas fa-user-tie') === $iconVal ? 'selected' : '' }}>{{ $iconLabel }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group mb-0">
+                            <label class="font-weight-bold small">Urutan Tampil (Sort Order)</label>
+                            <input type="number" name="sort_order" class="form-control form-control-admin" value="{{ old('sort_order', ($organizationStructures->count() ?? 0) + 1) }}" min="0">
+                        </div>
+                        <div class="col-md-4 form-group mb-0">
+                            <label class="font-weight-bold small">Status Aktif</label>
+                            <select name="is_active" class="form-control form-control-admin">
+                                <option value="1" selected>Aktif (Tampilkan)</option>
+                                <option value="0">Nonaktif (Sembunyikan)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-sm font-weight-bold">
+                        <i class="fal fa-save mr-1"></i> Simpan Jabatan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL EDIT STRUKTUR ORGANISASI ================= -->
+<div class="modal fade" id="modalEditStruktur" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-light">
+                <h6 class="modal-title font-weight-bold"><i class="fal fa-edit text-primary mr-1"></i> Edit Jabatan Struktur Organisasi</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formEditStruktur" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="_tab" value="struktur">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Jabatan Struktural <span class="text-danger">*</span></label>
+                            <input type="text" name="position_title" id="edit_struktur_position_title" class="form-control form-control-admin" required>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-bold small">Nama Pejabat / Personil (Opsional)</label>
+                            <input type="text" name="person_name" id="edit_struktur_person_name" class="form-control form-control-admin">
+                        </div>
+                        <div class="col-12 form-group mb-3">
+                            <label class="font-weight-bold small">Fungsi & Tanggung Jawab</label>
+                            <input type="text" name="role_description" id="edit_struktur_role_description" class="form-control form-control-admin">
+                        </div>
+                        <div class="col-md-4 form-group mb-0">
+                            <label class="font-weight-bold small">Ikon Jabatan <span class="text-danger">*</span></label>
+                            <select name="icon_class" id="edit_struktur_icon_class" class="form-control form-control-admin" required>
+                                @foreach($presetOrgIcons as $iconVal => $iconLabel)
+                                    <option value="{{ $iconVal }}">{{ $iconLabel }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group mb-0">
+                            <label class="font-weight-bold small">Urutan Tampil (Sort Order)</label>
+                            <input type="number" name="sort_order" id="edit_struktur_sort_order" class="form-control form-control-admin" min="0">
+                        </div>
+                        <div class="col-md-4 form-group mb-0">
+                            <label class="font-weight-bold small">Status Aktif</label>
+                            <select name="is_active" id="edit_struktur_is_active" class="form-control form-control-admin">
+                                <option value="1">Aktif (Tampilkan)</option>
+                                <option value="0">Nonaktif (Sembunyikan)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-sm font-weight-bold">
+                        <i class="fal fa-save mr-1"></i> Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Scripts Bawaan Template di public/js -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@ckeditor/ckeditor5-build-classic@41.4.2/build/ckeditor.js"></script>
+<script>
+    if (typeof ClassicEditor === 'undefined') {
+        document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor5/41.4.2/ckeditor.min.js"><\/script>');
+    }
+</script>
 <script>
     $(function () {
         if ($.fn.modal && $.fn.modal.Constructor) {
@@ -1628,6 +1949,7 @@
 
         var createBeritaEditor = null;
         var editBeritaEditor = null;
+        var pendingEditContent = '';
         var ckToolbarConfig = {
             toolbar: [
                 'heading', '|',
@@ -1638,29 +1960,46 @@
             ]
         };
 
-        if (typeof ClassicEditor !== 'undefined') {
+        function initBeritaEditors() {
+            if (typeof ClassicEditor === 'undefined') {
+                return;
+            }
+
             var createEl = document.querySelector('#create_berita_content');
-            if (createEl) {
+            if (createEl && !createBeritaEditor && !createEl.dataset.ckInitialized) {
+                createEl.dataset.ckInitialized = '1';
                 ClassicEditor.create(createEl, ckToolbarConfig)
                     .then(function (editor) {
                         createBeritaEditor = editor;
                     })
                     .catch(function (err) {
+                        createEl.dataset.ckInitialized = '';
                         console.error(err);
                     });
             }
 
             var editEl = document.querySelector('#edit_berita_content');
-            if (editEl) {
+            if (editEl && !editBeritaEditor && !editEl.dataset.ckInitialized) {
+                editEl.dataset.ckInitialized = '1';
                 ClassicEditor.create(editEl, ckToolbarConfig)
                     .then(function (editor) {
                         editBeritaEditor = editor;
+                        if (pendingEditContent !== '') {
+                            editBeritaEditor.setData(String(pendingEditContent));
+                        }
                     })
                     .catch(function (err) {
+                        editEl.dataset.ckInitialized = '';
                         console.error(err);
                     });
             }
         }
+
+        initBeritaEditors();
+
+        $('#modalTambahBerita, #modalEditBerita').on('shown.bs.modal', function () {
+            initBeritaEditors();
+        });
         var Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -1784,6 +2123,7 @@
         $('.btn-edit-berita').on('click', function () {
             var btn = $(this);
             var contentHtml = btn.data('content') || '';
+            pendingEditContent = String(contentHtml);
             $('#formEditBerita').attr('action', btn.data('action'));
             $('#edit_berita_title').val(btn.data('title'));
             $('#edit_berita_category_badge').val(btn.data('category_badge'));
@@ -1847,12 +2187,99 @@
             });
         });
 
+        $('.btn-edit-struktur').on('click', function () {
+            var btn = $(this);
+            $('#formEditStruktur').attr('action', btn.data('action'));
+            $('#edit_struktur_position_title').val(btn.data('position_title'));
+            $('#edit_struktur_person_name').val(btn.data('person_name'));
+            $('#edit_struktur_role_description').val(btn.data('role_description'));
+            $('#edit_struktur_icon_class').val(btn.data('icon_class'));
+            $('#edit_struktur_sort_order').val(btn.data('sort_order'));
+            $('#edit_struktur_is_active').val(String(btn.data('is_active')));
+        });
+
+        $('.form-delete-struktur').on('submit', function (e) {
+            e.preventDefault();
+            var form = this;
+            var strukturTitle = $(this).data('title') || 'jabatan ini';
+
+            Swal.fire({
+                title: 'Hapus Jabatan Struktur?',
+                text: 'Jabatan "' + strukturTitle + '" akan dihapus secara permanen.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+
+        $('#filterKategoriDokumen').on('change', function () {
+            var selectedCat = $(this).val();
+            var visibleNo = 1;
+            $('#tabelDokumenMutu tbody tr[data-category]').each(function () {
+                var rowCat = $(this).data('category');
+                if (selectedCat === 'all' || rowCat === selectedCat) {
+                    $(this).show();
+                    $(this).find('td:first').text(visibleNo++);
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        $('.btn-edit-dokumen').on('click', function () {
+            var btn = $(this);
+            $('#formEditDokumen').attr('action', btn.data('action'));
+            $('#edit_dokumen_category').val(btn.data('category'));
+            $('#edit_dokumen_code').val(btn.data('code'));
+            $('#edit_dokumen_title').val(btn.data('title'));
+            $('#edit_dokumen_edition').val(btn.data('edition'));
+            $('#edit_dokumen_file_type').val(btn.data('file_type') || 'PDF');
+            $('#edit_dokumen_file_size').val(btn.data('file_size'));
+            $('#edit_dokumen_file_path').val(btn.data('file_path'));
+            $('#edit_dokumen_sort_order').val(btn.data('sort_order'));
+            $('#edit_dokumen_is_active').val(String(btn.data('is_active')));
+        });
+
+        $('.form-delete-dokumen').on('submit', function (e) {
+            e.preventDefault();
+            var form = this;
+            var docTitle = $(this).data('title') || 'dokumen ini';
+
+            Swal.fire({
+                title: 'Hapus Dokumen Mutu?',
+                text: 'Dokumen "' + docTitle + '" akan dihapus secara permanen.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+
         @if(session('active_tab') === 'slider' || old('_tab') === 'slider')
             $('#tab-slider-link').tab('show');
         @elseif(session('active_tab') === 'galeri' || old('_tab') === 'galeri')
             $('#tab-galeri-link').tab('show');
         @elseif(session('active_tab') === 'berita' || old('_tab') === 'berita')
             $('#tab-berita-link').tab('show');
+        @elseif(session('active_tab') === 'struktur' || old('_tab') === 'struktur')
+            $('#tab-struktur-link').tab('show');
+        @elseif(session('active_tab') === 'dokumen' || old('_tab') === 'dokumen')
+            $('#tab-dokumen-link').tab('show');
         @endif
 
         if (window.location.hash) {

@@ -85,7 +85,7 @@
                             <h4 class="font-weight-bold text-dark mb-1"><i class="fas fa-folder-open text-primary mr-2"></i> Daftar Dokumen Standar Mutu</h4>
                             <small class="text-muted">Unduh dokumen resmi Standar SPMI Fakultas Informatika & Komputer</small>
                         </div>
-                        <span class="badge badge-light border px-3 py-2 text-dark mt-2 mt-sm-0">Total: 5 Dokumen</span>
+                        <span class="badge badge-light border px-3 py-2 text-dark mt-2 mt-sm-0">Total: {{ ($documents ?? collect())->count() }} Dokumen</span>
                     </div>
 
                     <div class="table-responsive">
@@ -101,66 +101,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center font-weight-bold">1</td>
-                                    <td><span class="badge badge-primary px-2 py-1">STD-SPMI-01</span></td>
-                                    <td class="font-weight-bold text-dark">Standar Kompetensi Lulusan (SKL) & Capaian Pembelajaran Lulusan (CPL)</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Versi 2026</td>
-                                    <td class="text-center text-muted">2.4 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-primary px-3" onclick="alert('Mengunduh Standar Kompetensi Lulusan')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">2</td>
-                                    <td><span class="badge badge-primary px-2 py-1">STD-SPMI-02</span></td>
-                                    <td class="font-weight-bold text-dark">Standar Isi Pembelajaran & Kurikulum OBE</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Versi 2026</td>
-                                    <td class="text-center text-muted">3.1 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-primary px-3" onclick="alert('Mengunduh Standar Isi Pembelajaran')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">3</td>
-                                    <td><span class="badge badge-primary px-2 py-1">STD-SPMI-03</span></td>
-                                    <td class="font-weight-bold text-dark">Standar Proses & Penilaian Pembelajaran</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Versi 2026</td>
-                                    <td class="text-center text-muted">1.9 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-primary px-3" onclick="alert('Mengunduh Standar Proses Pembelajaran')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">4</td>
-                                    <td><span class="badge badge-primary px-2 py-1">STD-SPMI-04</span></td>
-                                    <td class="font-weight-bold text-dark">Standar Dosen & Tenaga Kependidikan</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Versi 2026</td>
-                                    <td class="text-center text-muted">1.5 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-primary px-3" onclick="alert('Mengunduh Standar Dosen & Tendik')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center font-weight-bold">5</td>
-                                    <td><span class="badge badge-primary px-2 py-1">STD-SPMI-05</span></td>
-                                    <td class="font-weight-bold text-dark">Standar Sarana, Prasarana & Laboratorium ICT</td>
-                                    <td><i class="far fa-file-pdf text-danger mr-1"></i> PDF • Versi 2026</td>
-                                    <td class="text-center text-muted">2.8 MB</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-primary px-3" onclick="alert('Mengunduh Standar Sarana Prasarana')">
-                                            <i class="fas fa-download mr-1"></i> Unduh
-                                        </button>
-                                    </td>
-                                </tr>
+                                @forelse($documents ?? [] as $index => $doc)
+                                    <tr>
+                                        <td class="text-center font-weight-bold">{{ $index + 1 }}</td>
+                                        <td><span class="badge badge-primary px-2 py-1">{{ $doc->code }}</span></td>
+                                        <td class="font-weight-bold text-dark">{{ $doc->title }}</td>
+                                        <td><i class="{{ $doc->fileIconClass() }} mr-1"></i> {{ $doc->file_type }}{{ $doc->edition ? ' • ' . $doc->edition : '' }}</td>
+                                        <td class="text-center text-muted">{{ $doc->file_size ?? '-' }}</td>
+                                        <td class="text-center">
+                                            @if($doc->fileUrl() !== '#')
+                                                <a href="{{ $doc->fileUrl() }}" target="_blank" download class="btn btn-sm btn-primary px-3">
+                                                    <i class="fas fa-download mr-1"></i> Unduh
+                                                </a>
+                                            @else
+                                                <button class="btn btn-sm btn-primary px-3" onclick="alert('Mengunduh {{ addslashes($doc->title) }}')">
+                                                    <i class="fas fa-download mr-1"></i> Unduh
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">Belum ada dokumen standar mutu.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

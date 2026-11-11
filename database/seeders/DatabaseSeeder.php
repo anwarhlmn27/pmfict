@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             HeroSliderSeeder::class,
             GallerySeeder::class,
             NewsSeeder::class,
+            OrganizationStructureSeeder::class,
+            QualityDocumentSeeder::class,
         ]);
     }
 }

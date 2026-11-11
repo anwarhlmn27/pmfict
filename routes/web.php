@@ -4,12 +4,16 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\OrganizationStructureController;
+use App\Http\Controllers\Admin\QualityDocumentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DokumenMutuController;
 use App\Models\Gallery;
 use App\Models\HeroSlider;
 use App\Models\News;
+use App\Models\OrganizationStructure;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
@@ -39,10 +43,19 @@ Route::get('/', function () {
         $newsList = collect(News::defaultArticles())->map(fn (array $article): object => (object) $article);
     }
 
+    $organizationStructures = Schema::hasTable('organization_structures')
+        ? OrganizationStructure::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
+        : collect();
+
+    if ($organizationStructures->isEmpty()) {
+        $organizationStructures = collect(OrganizationStructure::defaultItems())->map(fn (array $item): object => (object) $item);
+    }
+
     return view('index', [
         'heroSliders' => $heroSliders,
         'galleries' => $galleries,
         'newsList' => $newsList,
+        'organizationStructures' => $organizationStructures,
     ]);
 })->name('home');
 
@@ -72,6 +85,7 @@ Route::prefix('spme')->group(function () {
 Route::get('/berita', function () {
     return redirect('/#berita');
 })->name('berita');
+Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.detail');
 
 // Download Menu (Halaman Dokumen Mutu)
 Route::prefix('download')->name('download.')->group(function () {
@@ -136,6 +150,16 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::post('/news', [NewsController::class, 'store'])->name('news.store');
     Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
+
+    // Organization Structure CRUD
+    Route::post('/organization-structures', [OrganizationStructureController::class, 'store'])->name('organization-structures.store');
+    Route::put('/organization-structures/{organizationStructure}', [OrganizationStructureController::class, 'update'])->name('organization-structures.update');
+    Route::delete('/organization-structures/{organizationStructure}', [OrganizationStructureController::class, 'destroy'])->name('organization-structures.destroy');
+
+    // Quality Document CRUD
+    Route::post('/quality-documents', [QualityDocumentController::class, 'store'])->name('quality-documents.store');
+    Route::put('/quality-documents/{qualityDocument}', [QualityDocumentController::class, 'update'])->name('quality-documents.update');
+    Route::delete('/quality-documents/{qualityDocument}', [QualityDocumentController::class, 'destroy'])->name('quality-documents.destroy');
 });
 
 // PPEPP Menu

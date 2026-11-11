@@ -184,31 +184,27 @@
                         <h1 data-aos="fade-right" data-aos-delay="100">Struktur Organisasi Penjaminan Mutu FICT</h1>
                         <div data-aos="fade-right" data-aos-delay="150" class="mt-3">
                             <p>Tata kelola unit penjaminan mutu tingkat fakultas dan gugus kendali mutu program studi:</p>
+                            @php
+                                $orgItems = isset($organizationStructures) && count($organizationStructures) > 0
+                                    ? $organizationStructures
+                                    : collect(\App\Models\OrganizationStructure::defaultItems())->map(fn (array $o): object => (object) $o);
+                            @endphp
                             <div class="row mt-3">
-                                <div class="col-sm-6 mb-3">
-                                    <div class="p-3 border rounded bg-white shadow-sm">
-                                        <h6 class="font-weight-bold text-dark mb-1"><i class="fas fa-user-tie text-primary mr-2"></i> Dekan FICT</h6>
-                                        <small class="text-muted">Pengarah & Penanggung Jawab SPMI Fakultas</small>
+                                @foreach($orgItems as $org)
+                                    <div class="col-sm-6 mb-3">
+                                        <div class="p-3 border rounded bg-white shadow-sm h-100">
+                                            <h6 class="font-weight-bold text-dark mb-1">
+                                                <i class="{{ $org->icon_class ?: 'fas fa-user-tie' }} text-primary mr-2"></i> {{ $org->position_title }}
+                                            </h6>
+                                            @if(!empty($org->person_name))
+                                                <div class="small font-weight-bold text-primary mb-1">{{ $org->person_name }}</div>
+                                            @endif
+                                            @if(!empty($org->role_description))
+                                                <small class="text-muted d-block">{{ $org->role_description }}</small>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="p-3 border rounded bg-white shadow-sm">
-                                        <h6 class="font-weight-bold text-dark mb-1"><i class="fas fa-award text-primary mr-2"></i> Ketua Gugus Mutu</h6>
-                                        <small class="text-muted">Koordinator Penjaminan Mutu & Standarisasi</small>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="p-3 border rounded bg-white shadow-sm">
-                                        <h6 class="font-weight-bold text-dark mb-1"><i class="fas fa-clipboard-check text-primary mr-2"></i> Tim Auditor AMI</h6>
-                                        <small class="text-muted">Pelaksana Audit Kepatuhan Perkuliahan</small>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="p-3 border rounded bg-white shadow-sm">
-                                        <h6 class="font-weight-bold text-dark mb-1"><i class="fas fa-laptop-code text-primary mr-2"></i> GKM Prodi Informatika & SI</h6>
-                                        <small class="text-muted">Gugus Kendali Mutu di tingkat Program Studi</small>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -366,7 +362,9 @@
                     @endphp
                     <div class="col-xl-4 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 75 }}">
                         <div class="single-blog-card style-3 bg-white rounded shadow-sm overflow-hidden h-100">
-                            <div class="blog-featured-thumb bg-cover" style="background-image: url('{{ $thumbUrl }}'); height: 210px;"></div>
+                            <a href="{{ route('berita.detail', $article->slug) }}" class="d-block">
+                                <div class="blog-featured-thumb bg-cover" style="background-image: url('{{ $thumbUrl }}'); height: 210px;"></div>
+                            </a>
                             <div class="content p-4">
                                 <div class="post-top-meta d-flex flex-wrap align-items-center mb-2">
                                     <div class="post-date mr-3">
@@ -374,12 +372,14 @@
                                     </div>
                                     <span class="badge {{ $badgeCls }}">{{ $article->category_badge }}</span>
                                 </div>
-                                <h4 class="font-weight-bold mb-2">{{ $article->title }}</h4>
+                                <h4 class="font-weight-bold mb-2">
+                                    <a href="{{ route('berita.detail', $article->slug) }}" class="text-dark">{{ $article->title }}</a>
+                                </h4>
                                 <div class="excerpt text-muted small mb-3">
                                     <p>{{ $article->excerpt ?: \Illuminate\Support\Str::limit(strip_tags((string) $article->content), 140) }}</p>
                                 </div>
                                 <div class="btn-link-share d-flex justify-content-between align-items-center">
-                                    <a href="#galeri-kegiatan" class="text-primary font-weight-bold">Lihat Foto <i class="icon-arrow-right-1"></i></a>
+                                    <a href="{{ route('berita.detail', $article->slug) }}" class="text-primary font-weight-bold">Lihat Detail <i class="icon-arrow-right-1"></i></a>
                                 </div>
                             </div>
                         </div>
