@@ -21,163 +21,152 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px 0;
+            padding: 20px 15px;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+        .login-wrapper {
+            width: 100%;
+            max-width: 400px;
         }
         .login-card {
-            border: 1px solid #e1e7ec;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(15, 41, 66, 0.06);
             background: #ffffff;
+            padding: 32px 28px;
         }
         .login-logo {
-            max-height: 52px;
+            max-height: 46px;
             width: auto;
         }
-        .btn-login {
-            background-color: #086ad7;
-            border-color: #086ad7;
-            color: #ffffff;
-            font-weight: 600;
-            padding: 12px 20px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+        .login-title {
+            font-size: 20px !important;
+            line-height: 1.3 !important;
+            letter-spacing: -0.3px !important;
+            color: #0f2942;
         }
-        .btn-login:hover {
+        .form-label {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .form-control-login {
+            height: 42px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 6px;
+            padding: 8px 12px;
+            width: 100%;
+            color: #1e293b;
+            background-color: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-control-login:focus {
+            border-color: #086ad7 !important;
+            box-shadow: 0 0 0 3px rgba(8, 106, 215, 0.12) !important;
+        }
+        .btn-submit {
+            background-color: #086ad7;
+            border: 1px solid #086ad7;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            height: 42px;
+            border-radius: 6px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .btn-submit:hover {
             background-color: #0652a5;
             border-color: #0652a5;
             color: #ffffff;
         }
-        .input-group-text {
-            background-color: #f8fafc;
-            border-color: #ced4da;
-            color: #6c757d;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4">
-                <div class="card login-card p-4 p-sm-5">
-                    
-                    <!-- 1. LOGO -->
-                    <div class="text-center mb-4">
-                        <a href="{{ route('home') }}">
-                            <img src="{{ asset('img/fict.png') }}" alt="PM FICT Logo" class="login-logo mb-2">
-                        </a>
-                        <h4 class="font-weight-bold text-dark mt-2 mb-1">Login Admin</h4>
-                        <p class="text-muted small mb-0">Penjaminan Mutu FICT</p>
-                    </div>
-
-                    <!-- Alert Notifikasi / Pesan Error -->
-                    @if (session('status'))
-                        <div class="alert alert-success py-2 px-3 small" role="alert">
-                            <i class="fal fa-check-circle mr-1"></i> {{ session('status') }}
-                        </div>
-                    @endif
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger py-2 px-3 small" role="alert">
-                            <i class="fal fa-exclamation-triangle mr-1"></i> {{ $errors->first() }}
-                        </div>
-                    @endif
-
-                    <!-- Form Login -->
-                    <form action="{{ route('login.submit') }}" method="POST" novalidate>
-                        @csrf
-
-                        <!-- 2. EMAIL -->
-                        <div class="form-group mb-3">
-                            <label for="email" class="small font-weight-bold text-secondary">Email</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fal fa-envelope"></i></span>
-                                </div>
-                                <input 
-                                    type="email" 
-                                    name="email" 
-                                    id="email" 
-                                    class="form-control @error('email') is-invalid @enderror" 
-                                    placeholder="admin@horizon.ac.id" 
-                                    value="{{ old('email') }}" 
-                                    required 
-                                    autofocus
-                                >
-                            </div>
-                            @error('email')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- 3. PASSWORD -->
-                        <div class="form-group mb-3">
-                            <label for="password" class="small font-weight-bold text-secondary">Password</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fal fa-lock"></i></span>
-                                </div>
-                                <input 
-                                    type="password" 
-                                    name="password" 
-                                    id="password" 
-                                    class="form-control @error('password') is-invalid @enderror" 
-                                    placeholder="••••••••" 
-                                    required
-                                >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword" aria-label="Toggle password">
-                                        <i class="fal fa-eye" id="toggleIcon"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            @error('password')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- 4. REMEMBER ME -->
-                        <div class="form-group form-check mb-4">
-                            <input type="checkbox" name="remember" class="form-check-input" id="remember" value="1" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label small text-secondary" for="remember">Remember me</label>
-                        </div>
-
-                        <!-- 5. BUTTON LOGIN -->
-                        <button type="submit" class="btn btn-login btn-block">
-                            <i class="fal fa-sign-in-alt mr-1"></i> Login
-                        </button>
-                    </form>
-
-                    <!-- Kembali ke Beranda -->
-                    <div class="text-center mt-4">
-                        <a href="{{ route('home') }}" class="text-muted small">
-                            <i class="fal fa-arrow-left mr-1"></i> Kembali ke Beranda
-                        </a>
-                    </div>
-
-                </div>
-
-                <div class="text-center text-muted small mt-3">
-                    &copy; {{ date('Y') }} PM FICT - Horizon University
-                </div>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <!-- Header & Logo -->
+            <div class="text-center mb-4">
+                <a href="{{ route('home') }}" class="d-inline-block mb-2">
+                    <img src="{{ asset('img/fict.png') }}" alt="PM FICT Logo" class="login-logo">
+                </a>
+                <h4 class="login-title font-weight-bold mb-1">Login Admin</h4>
+                <p class="text-muted small mb-0">Penjaminan Mutu FICT</p>
             </div>
+
+            <!-- Alert Notifikasi -->
+            @if (session('status'))
+                <div class="alert alert-success py-2 px-3 small mb-3" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger py-2 px-3 small mb-3" role="alert">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            <!-- Form Login Sederhana: Username, Password, Remember Me, Button Submit -->
+            <form action="{{ route('login.submit') }}" method="POST" novalidate>
+                @csrf
+
+                <!-- 1. Username -->
+                <div class="form-group mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        class="form-control-login @error('username') is-invalid @enderror"
+                        placeholder="Masukkan username"
+                        value="{{ old('username') }}"
+                        required
+                        autofocus
+                    >
+                </div>
+
+                <!-- 2. Password -->
+                <div class="form-group mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="form-control-login @error('password') is-invalid @enderror"
+                        placeholder="Masukkan password"
+                        required
+                    >
+                </div>
+
+                <!-- 3. Remember Me -->
+                <div class="form-group form-check mb-4">
+                    <input
+                        type="checkbox"
+                        name="remember"
+                        class="form-check-input"
+                        id="remember"
+                        value="1"
+                        {{ old('remember') ? 'checked' : '' }}
+                    >
+                    <label class="form-check-label small text-secondary" for="remember">Remember me</label>
+                </div>
+
+                <!-- 4. Button Submit -->
+                <button type="submit" class="btn-submit">
+                    Submit
+                </button>
+            </form>
         </div>
     </div>
 
     <!-- Scripts Bawaan Template di public/js -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script>
-        $('#togglePassword').on('click', function () {
-            var passwordInput = $('#password');
-            var icon = $('#toggleIcon');
-            if (passwordInput.attr('type') === 'password') {
-                passwordInput.attr('type', 'text');
-                icon.removeClass('fa-eye').addClass('fa-eye-slash');
-            } else {
-                passwordInput.attr('type', 'password');
-                icon.removeClass('fa-eye-slash').addClass('fa-eye');
-            }
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,173 @@
+@extends('layouts.main')
+
+@section('title', 'Dokumen Formulir Mutu - Penjaminan Mutu FICT')
+
+@section('content')
+
+<!-- ================= PAGE BANNER ================= -->
+<section class="page-banner-wrap bg-cover" style="background-image: linear-gradient(rgba(15, 41, 66, 0.85), rgba(15, 41, 66, 0.90)), url('{{ asset('img/foto/Meet5.jpeg') }}');">
+    <div class="banner-text">FORMULIR</div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-12 col-12">
+                <div class="page-heading text-white">
+                    <div class="page-title">
+                        <h1>Dokumen Formulir Mutu</h1>
+                    </div>
+                </div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/#download') }}">Download</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Dokumen Formulir Mutu</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= KONTEN DOKUMEN FORMULIR MUTU ================= -->
+<section class="dokumen-section bg-light">
+    <div class="container">
+        <!-- Navigasi Antar Halaman Dokumen Mutu -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="bg-white p-3 rounded shadow-sm border d-flex flex-wrap justify-content-center" style="gap: 10px;">
+                    <a href="{{ route('download.kebijakan-mutu') }}" class="btn btn-outline-primary font-weight-bold px-4 py-2">
+                        <i class="fas fa-shield-alt mr-2"></i> Kebijakan Mutu
+                    </a>
+                    <a href="{{ route('download.standar-mutu') }}" class="btn btn-outline-primary font-weight-bold px-4 py-2">
+                        <i class="fas fa-file-alt mr-2"></i> Standar Mutu
+                    </a>
+                    <a href="{{ route('download.manual-mutu') }}" class="btn btn-outline-primary font-weight-bold px-4 py-2">
+                        <i class="fas fa-book mr-2"></i> Manual Mutu
+                    </a>
+                    <a href="{{ route('download.formulir-mutu') }}" class="btn btn-primary font-weight-bold px-4 py-2">
+                        <i class="fas fa-clipboard-list mr-2"></i> Formulir Mutu
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ringkasan Informasi Formulir Mutu -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="bg-white p-4 rounded shadow-sm border">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <span class="badge badge-success px-3 py-1 mb-2">PILAR 04 SPMI</span>
+                            <h4 class="font-weight-bold text-dark mb-2">Tentang Formulir Mutu FICT</h4>
+                            <p class="text-muted mb-0">
+                                <strong>Dokumen Formulir Mutu</strong> berisi kumpulan format instrumen kerja, borang rekaman mutu, lembar monev perkuliahan, daftar tilik Audit Mutu Internal (AMI), serta formulir Permintaan Tindakan Koreksi (PTK) yang wajib digunakan di lingkungan FICT.
+                            </p>
+                        </div>
+                        <div class="col-lg-4 mt-3 mt-lg-0 border-left-lg pl-lg-4">
+                            <h6 class="font-weight-bold text-dark mb-2"><i class="fas fa-check-circle text-success mr-2"></i>Jenis Formulir:</h6>
+                            <ul class="list-unstyled text-muted small mb-0" style="line-height: 1.8;">
+                                <li><i class="fas fa-angle-right text-success mr-2"></i> Template RPS & Kontrak Kuliah OBE</li>
+                                <li><i class="fas fa-angle-right text-success mr-2"></i> Instrumen Monev Perkuliahan</li>
+                                <li><i class="fas fa-angle-right text-success mr-2"></i> Daftar Tilik & Berita Acara AMI</li>
+                                <li><i class="fas fa-angle-right text-success mr-2"></i> Formulir Temuan & Korektif (PTK)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabel Daftar Dokumen Formulir Mutu -->
+        <div class="row">
+            <div class="col-12">
+                <div class="bg-white p-4 rounded shadow-sm border">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+                        <div>
+                            <h4 class="font-weight-bold text-dark mb-1"><i class="fas fa-folder-open text-success mr-2"></i> Daftar Dokumen Formulir Mutu</h4>
+                            <small class="text-muted">Unduh template dan rekaman formulir operasional SPMI FICT</small>
+                        </div>
+                        <span class="badge badge-light border px-3 py-2 text-dark mt-2 mt-sm-0">Total: 5 Dokumen</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-dokumen-mutu">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="width: 60px;">No</th>
+                                    <th style="width: 150px;">Kode Dokumen</th>
+                                    <th>Nama Dokumen</th>
+                                    <th style="width: 190px;">Format / Edisi</th>
+                                    <th class="text-center" style="width: 110px;">Ukuran</th>
+                                    <th class="text-center" style="width: 130px;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center font-weight-bold">1</td>
+                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-01</span></td>
+                                    <td class="font-weight-bold text-dark">Formulir Rencana Pembelajaran Semester (RPS) & Kontrak Kuliah OBE</td>
+                                    <td><i class="far fa-file-word text-primary mr-1"></i> DOCX / PDF • 2026</td>
+                                    <td class="text-center text-muted">850 KB</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir RPS & Kontrak Kuliah OBE')">
+                                            <i class="fas fa-download mr-1"></i> Unduh
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-weight-bold">2</td>
+                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-02</span></td>
+                                    <td class="font-weight-bold text-dark">Formulir Monitoring dan Evaluasi (Monev) Ketercapaian Perkuliahan</td>
+                                    <td><i class="far fa-file-excel text-success mr-1"></i> XLSX / PDF • 2026</td>
+                                    <td class="text-center text-muted">620 KB</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir Monev Perkuliahan')">
+                                            <i class="fas fa-download mr-1"></i> Unduh
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-weight-bold">3</td>
+                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-03</span></td>
+                                    <td class="font-weight-bold text-dark">Formulir Daftar Tilik (Checklist) & Instrumen Audit Mutu Internal (AMI)</td>
+                                    <td><i class="far fa-file-word text-primary mr-1"></i> DOCX / PDF • 2026</td>
+                                    <td class="text-center text-muted">1.2 MB</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir Daftar Tilik AMI')">
+                                            <i class="fas fa-download mr-1"></i> Unduh
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-weight-bold">4</td>
+                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-04</span></td>
+                                    <td class="font-weight-bold text-dark">Formulir Permintaan Tindakan Koreksi (PTK) Temuan Audit</td>
+                                    <td><i class="far fa-file-word text-primary mr-1"></i> DOCX / PDF • 2026</td>
+                                    <td class="text-center text-muted">540 KB</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir Permintaan Tindakan Koreksi')">
+                                            <i class="fas fa-download mr-1"></i> Unduh
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-weight-bold">5</td>
+                                    <td><span class="badge badge-success px-2 py-1">FRM-SPMI-05</span></td>
+                                    <td class="font-weight-bold text-dark">Formulir Berita Acara & Risalah Rapat Tinjauan Manajemen (RTM)</td>
+                                    <td><i class="far fa-file-word text-primary mr-1"></i> DOCX / PDF • 2026</td>
+                                    <td class="text-center text-muted">710 KB</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-success px-3" onclick="alert('Mengunduh Formulir Berita Acara RTM')">
+                                            <i class="fas fa-download mr-1"></i> Unduh
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@endsection

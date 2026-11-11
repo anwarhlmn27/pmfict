@@ -28,11 +28,12 @@
                             <h4>Profile & SPME</h4>
                         </div>
                         <ul>
-                            <li><a href="#struktur-organisasi">Struktur Organisasi</a></li>
-                            <li><a href="#visi-misi">Visi dan Misi</a></li>
-                            <li><a href="#spme-banpt">BAN-PT</a></li>
-                            <li><a href="#spme-laminfokom">LAMINFOKOM</a></li>
-                            <li><a href="#galeri-kegiatan">Galeri Rapat</a></li>
+                            <li><a href="{{ url('/#struktur-organisasi') }}">Struktur Organisasi</a></li>
+                            <li><a href="{{ url('/#visi-misi') }}">Visi dan Misi</a></li>
+                            <li><a href="{{ route('kontak') }}">Kontak Kami</a></li>
+                            <li><a href="{{ url('/#spme-banpt') }}">BAN-PT</a></li>
+                            <li><a href="{{ url('/#spme-laminfokom') }}">LAMINFOKOM</a></li>
+                            <li><a href="{{ url('/#galeri-kegiatan') }}">Galeri Rapat</a></li>
                         </ul>
                     </div>
                 </div>
@@ -41,16 +42,14 @@
                 <div class="col-md-6 col-xl-3 col-12">                        
                     <div class="single-footer-wid">
                         <div class="wid-title">
-                            <h4>PPEPP & Dokumen</h4>
+                            <h4>Dokumen Mutu SPMI</h4>
                         </div>
                         <ul>
-                            <li><a href="#ppepp-penetapan">Penetapan Standar</a></li>
-                            <li><a href="#ppepp-pelaksanaan">Pelaksanaan Mutu</a></li>
-                            <li><a href="#ppepp-evaluasi">Evaluasi (AMI)</a></li>
-                            <li><a href="#ppepp-pengendalian">Pengendalian (RTM)</a></li>
-                            <li><a href="#ppepp-peningkatan">Peningkatan Mutu</a></li>
-                            <li><a href="#dokumen-standar-mutu">Dokumen Standar Mutu</a></li>
-                            <li><a href="#dokumen-manual-mutu">Dokumen Manual Mutu</a></li>
+                            <li><a href="{{ route('download.kebijakan-mutu') }}">Dokumen Kebijakan Mutu</a></li>
+                            <li><a href="{{ route('download.standar-mutu') }}">Dokumen Standar Mutu</a></li>
+                            <li><a href="{{ route('download.manual-mutu') }}">Dokumen Manual Mutu</a></li>
+                            <li><a href="{{ route('download.formulir-mutu') }}">Dokumen Formulir Mutu</a></li>
+                            <li><a href="{{ url('/#ppepp') }}">Siklus PPEPP</a></li>
                         </ul>
                     </div>
                 </div>

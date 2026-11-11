@@ -1,6 +1,6 @@
 <header class="header-wrap header-5">
     <div class="top-header d-none d-md-block">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-md-7">
                     <div class="header-cta">
@@ -26,7 +26,7 @@
     </div>
 
     <div class="main-header-wraper">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row align-items-center justify-content-between">
                 <!-- Logo -->
                 <div class="header-logo">
@@ -43,32 +43,35 @@
                     <div class="main-menu">
                         <ul>
                             <!-- 1. Home -->
-                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ route('home') }}">Home</a></li>
 
                             <!-- 2. Profile -->
-                            <li><a href="#profile">Profile <i class="fas fa-angle-down"></i></a>
+                            <li><a href="{{ url('/#profile') }}">Profile <i class="fas fa-angle-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="#struktur-organisasi">Struktur Organisasi</a></li>
-                                    <li><a href="#visi-misi">Visi dan Misi</a></li>
+                                    <li><a href="{{ url('/#struktur-organisasi') }}">Struktur Organisasi</a></li>
+                                    <li><a href="{{ url('/#visi-misi') }}">Visi dan Misi</a></li>
+                                    <li><a href="{{ route('kontak') }}">Kontak Kami</a></li>
                                 </ul>
                             </li>
 
                             <!-- 3. SPME -->
-                            <li><a href="#spme">SPME <i class="fas fa-angle-down"></i></a>
+                            <li><a href="{{ url('/#spme') }}">SPME <i class="fas fa-angle-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="#spme-banpt">BAN-PT</a></li>
-                                    <li><a href="#spme-laminfokom">LAMINFOKOM</a></li>
+                                    <li><a href="{{ url('/#spme-banpt') }}">BAN-PT</a></li>
+                                    <li><a href="{{ url('/#spme-laminfokom') }}">LAMINFOKOM</a></li>
                                 </ul>
                             </li>
 
                             <!-- 4. Berita -->
-                            <li><a href="#berita">Berita</a></li>
+                            <li><a href="{{ url('/#berita') }}">Berita</a></li>
 
                             <!-- 5. Download -->
-                            <li><a href="#download">Download <i class="fas fa-angle-down"></i></a>
+                            <li><a href="{{ url('/#download') }}">Download <i class="fas fa-angle-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="#dokumen-standar-mutu">Dokumen Standar Mutu</a></li>
-                                    <li><a href="#dokumen-manual-mutu">Dokumen Manual Mutu</a></li>
+                                    <li><a href="{{ route('download.kebijakan-mutu') }}">Dokumen Kebijakan Mutu</a></li>
+                                    <li><a href="{{ route('download.standar-mutu') }}">Dokumen Standar Mutu</a></li>
+                                    <li><a href="{{ route('download.manual-mutu') }}">Dokumen Manual Mutu</a></li>
+                                    <li><a href="{{ route('download.formulir-mutu') }}">Dokumen Formulir Mutu</a></li>
                                 </ul>
                             </li>
 
@@ -83,13 +86,13 @@
                             </li>
 
                             <!-- 7. PPEPP -->
-                            <li><a href="#ppepp">PPEPP <i class="fas fa-angle-down"></i></a>
+                            <li><a href="{{ url('/#ppepp') }}">PPEPP <i class="fas fa-angle-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="#ppepp-penetapan">Penetapan</a></li>
-                                    <li><a href="#ppepp-pelaksanaan">Pelaksanaan</a></li>
-                                    <li><a href="#ppepp-evaluasi">Evaluasi</a></li>
-                                    <li><a href="#ppepp-pengendalian">Pengendalian</a></li>
-                                    <li><a href="#ppepp-peningkatan">Peningkatan</a></li>
+                                    <li><a href="{{ url('/#ppepp-penetapan') }}">Penetapan</a></li>
+                                    <li><a href="{{ url('/#ppepp-pelaksanaan') }}">Pelaksanaan</a></li>
+                                    <li><a href="{{ url('/#ppepp-evaluasi') }}">Evaluasi</a></li>
+                                    <li><a href="{{ url('/#ppepp-pengendalian') }}">Pengendalian</a></li>
+                                    <li><a href="{{ url('/#ppepp-peningkatan') }}">Peningkatan</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -111,24 +114,27 @@
                                 </button>
                                 <nav class="sidebar-nav">
                                     <ul class="metismenu" id="mobile-menu">
-                                        <li><a href="{{ url('/') }}">Home</a></li>
-                                        <li><a class="has-arrow" href="#profile">Profile</a>
+                                        <li><a href="{{ route('home') }}">Home</a></li>
+                                        <li><a class="has-arrow" href="{{ url('/#profile') }}">Profile</a>
                                             <ul class="sub-menu">
-                                                <li><a href="#struktur-organisasi">Struktur Organisasi</a></li>
-                                                <li><a href="#visi-misi">Visi dan Misi</a></li>
+                                                <li><a href="{{ url('/#struktur-organisasi') }}">Struktur Organisasi</a></li>
+                                                <li><a href="{{ url('/#visi-misi') }}">Visi dan Misi</a></li>
+                                                <li><a href="{{ route('kontak') }}">Kontak Kami</a></li>
                                             </ul>
                                         </li>
-                                        <li><a class="has-arrow" href="#spme">SPME</a>
+                                        <li><a class="has-arrow" href="{{ url('/#spme') }}">SPME</a>
                                             <ul class="sub-menu">
-                                                <li><a href="#spme-banpt">BAN-PT</a></li>
-                                                <li><a href="#spme-laminfokom">LAMINFOKOM</a></li>
+                                                <li><a href="{{ url('/#spme-banpt') }}">BAN-PT</a></li>
+                                                <li><a href="{{ url('/#spme-laminfokom') }}">LAMINFOKOM</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="#berita">Berita</a></li>
-                                        <li><a class="has-arrow" href="#download">Download</a>
+                                        <li><a href="{{ url('/#berita') }}">Berita</a></li>
+                                        <li><a class="has-arrow" href="{{ url('/#download') }}">Download</a>
                                             <ul class="sub-menu">
-                                                <li><a href="#dokumen-standar-mutu">Dokumen Standar Mutu</a></li>
-                                                <li><a href="#dokumen-manual-mutu">Dokumen Manual Mutu</a></li>
+                                                <li><a href="{{ route('download.kebijakan-mutu') }}">Dokumen Kebijakan Mutu</a></li>
+                                                <li><a href="{{ route('download.standar-mutu') }}">Dokumen Standar Mutu</a></li>
+                                                <li><a href="{{ route('download.manual-mutu') }}">Dokumen Manual Mutu</a></li>
+                                                <li><a href="{{ route('download.formulir-mutu') }}">Dokumen Formulir Mutu</a></li>
                                             </ul>
                                         </li>
                                         <li><a class="has-arrow" href="#">Aplikasi</a>
@@ -139,13 +145,13 @@
                                                 <li><a href="{{ route('login') }}">Login</a></li>
                                             </ul>
                                         </li>
-                                        <li><a class="has-arrow" href="#ppepp">PPEPP</a>
+                                        <li><a class="has-arrow" href="{{ url('/#ppepp') }}">PPEPP</a>
                                             <ul class="sub-menu">
-                                                <li><a href="#ppepp-penetapan">Penetapan</a></li>
-                                                <li><a href="#ppepp-pelaksanaan">Pelaksanaan</a></li>
-                                                <li><a href="#ppepp-evaluasi">Evaluasi</a></li>
-                                                <li><a href="#ppepp-pengendalian">Pengendalian</a></li>
-                                                <li><a href="#ppepp-peningkatan">Peningkatan</a></li>
+                                                <li><a href="{{ url('/#ppepp-penetapan') }}">Penetapan</a></li>
+                                                <li><a href="{{ url('/#ppepp-pelaksanaan') }}">Pelaksanaan</a></li>
+                                                <li><a href="{{ url('/#ppepp-evaluasi') }}">Evaluasi</a></li>
+                                                <li><a href="{{ url('/#ppepp-pengendalian') }}">Pengendalian</a></li>
+                                                <li><a href="{{ url('/#ppepp-peningkatan') }}">Peningkatan</a></li>
                                             </ul>
                                         </li>
                                     </ul>

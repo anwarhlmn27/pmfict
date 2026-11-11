@@ -5,84 +5,57 @@
 @section('content')
 
 <!-- ================= HERO SLIDER SECTION ================= -->
+@php
+    $slides = isset($heroSliders) && count($heroSliders) > 0
+        ? $heroSliders
+        : collect(\App\Models\HeroSlider::defaultSlides())->map(fn (array $s): object => (object) $s);
+@endphp
 <section id="home" class="hero-slide-wrapper techex-landing-page">
     <div class="hero-slider-active-2 owl-carousel owl-theme">
-        
-        <!-- Slide 1: Meet1.jpeg -->
-        <div class="single-slide bg-cover" style="background-image: linear-gradient(rgba(15, 41, 66, 0.82), rgba(15, 41, 66, 0.88)), url('{{ asset('img/foto/Meet1.jpeg') }}');">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="hero-contents text-center">
-                            <a class="theme-btn-sm" data-animation="fadeInUp" data-delay="0">
-                                <i class="icon-award"></i> SISTEM PENJAMINAN MUTU INTERNAL (SPMI)
-                            </a>
-                            <h1 data-animation="fadeInUp" data-delay="0.4s">
-                                Membangun Budaya Mutu Unggul Fakultas Informatika & Komputer
-                            </h1>
-                            <div data-animation="fadeInUp" data-delay="0.6s">
-                                <p>Mengawal mutu Tridharma Perguruan Tinggi, akreditasi nasional (BAN-PT & LAMINFOKOM), dan tata kelola akademik berstandar prima melalui siklus berkelanjutan PPEPP.</p>
-                            </div>
-                            <div class="btn__wrapper d-flex flex-wrap justify-content-center" data-animation="fadeInUp" data-delay="0.8s">
-                                <a href="#ppepp" class="theme-btn">Siklus PPEPP <i class="icon-arrow-right-1"></i></a>
-                                <a href="#dokumen-standar-mutu" class="theme-btn">Unduh Dokumen Mutu <i class="icon-arrow-right-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 2: Meet2.jpeg -->
-        <div class="single-slide bg-cover" style="background-image: linear-gradient(rgba(15, 41, 66, 0.82), rgba(15, 41, 66, 0.88)), url('{{ asset('img/foto/Meet2.jpeg') }}');">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="hero-contents text-center">
-                            <a class="theme-btn-sm" data-animation="fadeInUp" data-delay="0">
-                                <i class="icon-laptop"></i> GUGUS KENDALI MUTU (GKM) FICT
-                            </a>
-                            <h1 data-animation="fadeInUp" data-delay="0.4s">
-                                Review Kurikulum & Ketercapaian Capaian Pembelajaran Lulusan
-                            </h1>
-                            <div data-animation="fadeInUp" data-delay="0.6s">
-                                <p>Penyelarasan kurikulum berbasis Outcome-Based Education (OBE) pada Program Studi Informatika dan Sistem Informasi.</p>
-                            </div>
-                            <div class="btn__wrapper d-flex flex-wrap justify-content-center" data-animation="fadeInUp" data-delay="0.8s">
-                                <a href="#spme" class="theme-btn">Akreditasi SPME <i class="icon-arrow-right-1"></i></a>
-                                <a href="#galeri-kegiatan" class="theme-btn">Galeri Rapat Mutu <i class="icon-arrow-right-1"></i></a>
+        @foreach($slides as $slide)
+            @php
+                $bgUrl = $slide instanceof \App\Models\HeroSlider
+                    ? $slide->imageUrl()
+                    : (str_starts_with($slide->image_path, 'http') ? $slide->image_path : asset($slide->image_path));
+            @endphp
+            <div class="single-slide bg-cover" style="background-image: url('{{ $bgUrl }}');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-contents text-center">
+                                @if(!empty($slide->badge_text))
+                                    <a class="theme-btn-sm" data-animation="fadeInUp" data-delay="0">
+                                        {{ $slide->badge_text }}
+                                    </a>
+                                @endif
+                                <h1 data-animation="fadeInUp" data-delay="0.4s">
+                                    {{ $slide->title }}
+                                </h1>
+                                @if(!empty($slide->description))
+                                    <div data-animation="fadeInUp" data-delay="0.6s">
+                                        <p>{{ $slide->description }}</p>
+                                    </div>
+                                @endif
+                                @if(!empty($slide->primary_btn_text) || !empty($slide->secondary_btn_text))
+                                    <div class="btn__wrapper d-flex flex-wrap justify-content-center" data-animation="fadeInUp" data-delay="0.8s">
+                                        @if(!empty($slide->primary_btn_text))
+                                            <a href="{{ $slide->primary_btn_url ?: '#' }}"
+                                               @if(str_starts_with((string) $slide->primary_btn_url, 'http')) target="_blank" rel="noopener noreferrer" @endif
+                                               class="theme-btn">{{ $slide->primary_btn_text }} <i class="icon-arrow-right-1"></i></a>
+                                        @endif
+                                        @if(!empty($slide->secondary_btn_text))
+                                            <a href="{{ $slide->secondary_btn_url ?: '#' }}"
+                                               @if(str_starts_with((string) $slide->secondary_btn_url, 'http')) target="_blank" rel="noopener noreferrer" @endif
+                                               class="theme-btn">{{ $slide->secondary_btn_text }} <i class="icon-arrow-right-1"></i></a>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Slide 3: Meet4.jpeg -->
-        <div class="single-slide bg-cover" style="background-image: linear-gradient(rgba(15, 41, 66, 0.82), rgba(15, 41, 66, 0.88)), url('{{ asset('img/foto/Meet4.jpeg') }}');">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="hero-contents text-center">
-                            <a class="theme-btn-sm" data-animation="fadeInUp" data-delay="0">
-                                <i class="icon-check"></i> RAPAT TINJAUAN MANAJEMEN
-                            </a>
-                            <h1 data-animation="fadeInUp" data-delay="0.4s">
-                                Pengendalian & Peningkatan Standar Mutu Berkesinambungan
-                            </h1>
-                            <div data-animation="fadeInUp" data-delay="0.6s">
-                                <p>Tindak lanjut rekomendasi hasil Audit Mutu Internal (AMI) bersama jajaran pimpinan fakultas dan program studi.</p>
-                            </div>
-                            <div class="btn__wrapper d-flex flex-wrap justify-content-center" data-animation="fadeInUp" data-delay="0.8s">
-                                <a href="https://spmi.horizon.ac.id/login" target="_blank" rel="noopener noreferrer" class="theme-btn">Aplikasi AQA <i class="icon-arrow-right-1"></i></a>
-                                <a href="https://lms.horizon.ac.id/" target="_blank" rel="noopener noreferrer" class="theme-btn">Portal LMS <i class="icon-arrow-right-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @endforeach
     </div>
 </section>
 
@@ -106,7 +79,7 @@
             <div class="row mt-4">
                 <!-- 1. Penetapan (#ppepp-penetapan) -->
                 <div class="col-12 col-md-6 col-xl" id="ppepp-penetapan" data-aos="fade-up">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 280px;">
+                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
                         <div class="number">P</div>
                         <div class="content"> 
                             <h3>Penetapan</h3>
@@ -118,7 +91,7 @@
 
                 <!-- 2. Pelaksanaan (#ppepp-pelaksanaan) -->
                 <div class="col-12 col-md-6 col-xl" id="ppepp-pelaksanaan" data-aos="fade-up" data-aos-delay="100">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 280px;">
+                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
                         <div class="number">P</div>
                         <div class="content"> 
                             <h3>Pelaksanaan</h3>
@@ -130,7 +103,7 @@
 
                 <!-- 3. Evaluasi (#ppepp-evaluasi) -->
                 <div class="col-12 col-md-6 col-xl" id="ppepp-evaluasi" data-aos="fade-up" data-aos-delay="150">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 280px;">
+                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
                         <div class="number">E</div>
                         <div class="content"> 
                             <h3>Evaluasi</h3>
@@ -142,7 +115,7 @@
 
                 <!-- 4. Pengendalian (#ppepp-pengendalian) -->
                 <div class="col-12 col-md-6 col-xl" id="ppepp-pengendalian" data-aos="fade-up" data-aos-delay="200">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 280px;">
+                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
                         <div class="number">P</div>
                         <div class="content"> 
                             <h3>Pengendalian</h3>
@@ -154,7 +127,7 @@
 
                 <!-- 5. Peningkatan (#ppepp-peningkatan) -->
                 <div class="col-12 col-md-6 col-xl" id="ppepp-peningkatan" data-aos="fade-up" data-aos-delay="250">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 280px;">
+                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
                         <div class="number">P</div>
                         <div class="content"> 
                             <h3>Peningkatan</h3>
@@ -173,12 +146,12 @@
             
             <!-- VISI DAN MISI (#visi-misi) -->
             <div id="visi-misi" class="row align-items-center mb-60">
-                <div class="col-lg-6">
+                <div class="col-lg-6 pr-lg-4">
                     <div class="about-img" data-aos="fade-right">
-                        <img src="{{ asset('img/foto/Meet3.jpeg') }}" class="img-fluid rounded shadow" alt="Visi Misi Mutu FICT" style="width: 100%; max-height: 420px; object-fit: cover;">
+                        <img src="{{ asset('img/foto/Meet3.jpeg') }}" class="img-fluid rounded shadow" alt="Visi Misi Mutu FICT" style="width: 100%; max-height: 360px; object-fit: cover;">
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 pl-lg-4">
                     <div class="section-title">
                         <a class="theme-btn-sm mb-15" data-aos="fade-left">PROFIL UNIT</a>
                         <h1 data-aos="fade-left" data-aos-delay="100">Visi & Misi Penjaminan Mutu FICT</h1>
@@ -200,12 +173,12 @@
 
             <!-- STRUKTUR ORGANISASI (#struktur-organisasi) -->
             <div id="struktur-organisasi" class="row align-items-center flex-row-reverse pt-40">
-                <div class="col-lg-6">
+                <div class="col-lg-6 pl-lg-4">
                     <div class="about-img" data-aos="fade-left">
-                        <img src="{{ asset('img/foto/Meet5.jpeg') }}" class="img-fluid rounded shadow" alt="Struktur Organisasi Penjaminan Mutu FICT" style="width: 100%; max-height: 420px; object-fit: cover;">
+                        <img src="{{ asset('img/foto/Meet5.jpeg') }}" class="img-fluid rounded shadow" alt="Struktur Organisasi Penjaminan Mutu FICT" style="width: 100%; max-height: 360px; object-fit: cover;">
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 pr-lg-4">
                     <div class="section-title">
                         <a class="theme-btn-sm mb-15" data-aos="fade-right">TATA KELOLA</a>
                         <h1 data-aos="fade-right" data-aos-delay="100">Struktur Organisasi Penjaminan Mutu FICT</h1>
@@ -323,149 +296,37 @@
                 </div>
             </div>
 
-            <!-- Carousel 10 Foto Rapat Mutu (3 Foto Per Tampilan, Scroll ke Kanan) -->
+            <!-- Carousel Foto Rapat Mutu (3 Foto Per Tampilan, Scroll ke Kanan) -->
+            @php
+                $galleryItems = isset($galleries) && count($galleries) > 0
+                    ? $galleries
+                    : collect(\App\Models\Gallery::defaultItems())->map(fn (array $g): object => (object) $g);
+            @endphp
             <div class="galeri-rapat-slider owl-carousel owl-theme mt-50" data-aos="fade-up">
-                
-                <!-- Foto 1 (Meet1.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet1.jpeg') }}" class="popup-gallery" title="Rapat Koordinasi Tim Mutu FICT">
-                            <img src="{{ asset('img/foto/Meet1.jpeg') }}" class="img-fluid" alt="Rapat Koordinasi Tim Penjaminan Mutu FICT" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-primary mb-2">SPMI</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Rapat Koordinasi Tim Mutu FICT</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Pemetaan Standar Mutu Akademik</small>
+                @foreach($galleryItems as $item)
+                    @php
+                        $imgUrl = $item instanceof \App\Models\Gallery
+                            ? $item->imageUrl()
+                            : (str_starts_with($item->image_path, 'http') ? $item->image_path : asset($item->image_path));
+                        $badgeCls = $item instanceof \App\Models\Gallery
+                            ? $item->badgeClass()
+                            : \App\Models\Gallery::resolveBadgeClass($item->badge ?? 'SPMI');
+                    @endphp
+                    <div class="single-galeri-item">
+                        <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
+                            <a href="{{ $imgUrl }}" class="popup-gallery" title="{{ $item->title }}">
+                                <img src="{{ $imgUrl }}" class="img-fluid" alt="{{ $item->title }}" style="height: 230px; width: 100%; object-fit: cover;">
+                            </a>
+                            <div class="card-body p-3">
+                                <span class="badge {{ $badgeCls }} mb-2">{{ $item->badge }}</span>
+                                <h6 class="font-weight-bold text-dark mb-1">{{ $item->title }}</h6>
+                                @if(!empty($item->subtitle))
+                                    <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> {{ $item->subtitle }}</small>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Foto 2 (Meet2.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet2.jpeg') }}" class="popup-gallery" title="Diskusi Gugus Kendali Mutu & Kurikulum">
-                            <img src="{{ asset('img/foto/Meet2.jpeg') }}" class="img-fluid" alt="Diskusi Gugus Kendali Mutu" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-success mb-2">GKM</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Diskusi Gugus Kendali Mutu & Kurikulum</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Review Capaian Pembelajaran Lulusan (CPL)</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Foto 3 (Meet3.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet3.jpeg') }}" class="popup-gallery" title="Presentasi Pemetaan Standar Capaian">
-                            <img src="{{ asset('img/foto/Meet3.jpeg') }}" class="img-fluid" alt="Presentasi Standar Capaian" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-warning mb-2">CPL</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Presentasi Pemetaan Standar Capaian</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Pemaparan Instrumen Mutu Perkuliahan</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Foto 4 (Meet4.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet4.jpeg') }}" class="popup-gallery" title="Rapat Tinjauan Manajemen Semesteran">
-                            <img src="{{ asset('img/foto/Meet4.jpeg') }}" class="img-fluid" alt="Rapat Tinjauan Manajemen" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-danger mb-2">RTM</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Rapat Tinjauan Manajemen Semesteran</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Pengendalian Temuan Audit Mutu Internal</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Foto 5 (Meet5.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet5.jpeg') }}" class="popup-gallery" title="Workshop Pemutakhiran Dokumen Standar">
-                            <img src="{{ asset('img/foto/Meet5.jpeg') }}" class="img-fluid" alt="Workshop Pemutakhiran Dokumen" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-info mb-2">SOP</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Workshop Pemutakhiran Dokumen Standar</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Sinkronisasi Standar SN-Dikti & LAMINFOKOM</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Foto 6 (Meet6.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet6.jpeg') }}" class="popup-gallery" title="Monitoring Ketercapaian Perkuliahan">
-                            <img src="{{ asset('img/foto/Meet6.jpeg') }}" class="img-fluid" alt="Monitoring Ketercapaian Mutu" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-dark mb-2">MONEV</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Monitoring Ketercapaian Perkuliahan</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Analisis Hasil Kuesioner Kepuasan</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Foto 7 (Meet7.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet7.jpeg') }}" class="popup-gallery" title="Tim Auditor Mutu Internal">
-                            <img src="{{ asset('img/foto/Meet7.jpeg') }}" class="img-fluid" alt="Koordinasi Auditor Internal" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-success mb-2">AMI</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Tim Auditor Mutu Internal</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Penugasan Auditor Lapangan</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Foto 8 (Meet8.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet8.jpeg') }}" class="popup-gallery" title="Tindak Lanjut Temuan Audit">
-                            <img src="{{ asset('img/foto/Meet8.jpeg') }}" class="img-fluid" alt="Tindak Lanjut Temuan Audit" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-danger mb-2">PTK</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Tindak Lanjut Temuan Audit</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Kaizen Peningkatan Standar Mutu</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Foto 9 (Meet9.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet9.jpeg') }}" class="popup-gallery" title="Standarisasi Lab Komputer">
-                            <img src="{{ asset('img/foto/Meet9.jpeg') }}" class="img-fluid" alt="Standarisasi Sarana Laboratorium" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-info mb-2">SARPRAS</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Standarisasi Lab Komputer</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Fasilitas Praktikum & Riset ICT</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Foto 10 (Meet10.jpeg) -->
-                <div class="single-galeri-item">
-                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                        <a href="{{ asset('img/foto/Meet10.jpeg') }}" class="popup-gallery" title="Finalisasi Berkas LED/LKPS">
-                            <img src="{{ asset('img/foto/Meet10.jpeg') }}" class="img-fluid" alt="Finalisasi Dokumen Akreditasi" style="height: 230px; width: 100%; object-fit: cover;">
-                        </a>
-                        <div class="card-body p-3">
-                            <span class="badge badge-primary mb-2">AKREDITASI</span>
-                            <h6 class="font-weight-bold text-dark mb-1">Finalisasi Berkas LED/LKPS</h6>
-                            <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> Submit Dokumen LAMINFOKOM</small>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </section>
@@ -485,72 +346,45 @@
                 </div>
             </div>
 
+            @php
+                $articles = isset($newsList) && count($newsList) > 0
+                    ? $newsList
+                    : collect(\App\Models\News::defaultArticles())->map(fn (array $a): object => (object) $a);
+            @endphp
             <div class="row mt-5">
-                <!-- Berita 1 -->
-                <div class="col-xl-4 col-md-6 col-12 mb-4" data-aos="fade-up">
-                    <div class="single-blog-card style-3 bg-white rounded shadow-sm overflow-hidden h-100">
-                        <div class="blog-featured-thumb bg-cover" style="background-image: url('{{ asset('img/foto/Meet1.jpeg') }}'); height: 210px;"></div>
-                        <div class="content p-4">
-                            <div class="post-top-meta d-flex flex-wrap align-items-center mb-2">
-                                <div class="post-date mr-3">
-                                    <span class="text-muted small"><i class="fal fa-calendar-alt mr-1"></i> 15 Oktober 2026</span>
+                @foreach($articles as $article)
+                    @php
+                        $thumbUrl = $article instanceof \App\Models\News
+                            ? $article->thumbnailUrl()
+                            : (str_starts_with($article->thumbnail ?? '', 'http') ? $article->thumbnail : asset($article->thumbnail ?: 'img/foto/Meet1.jpeg'));
+                        $badgeCls = $article instanceof \App\Models\News
+                            ? $article->badgeClass()
+                            : \App\Models\News::resolveBadgeClass($article->category_badge ?? 'SPMI');
+                        $pubDate = $article instanceof \App\Models\News
+                            ? $article->formattedPublishedDate()
+                            : \App\Models\News::formatIndonesianDate($article->published_at ?? now());
+                    @endphp
+                    <div class="col-xl-4 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 75 }}">
+                        <div class="single-blog-card style-3 bg-white rounded shadow-sm overflow-hidden h-100">
+                            <div class="blog-featured-thumb bg-cover" style="background-image: url('{{ $thumbUrl }}'); height: 210px;"></div>
+                            <div class="content p-4">
+                                <div class="post-top-meta d-flex flex-wrap align-items-center mb-2">
+                                    <div class="post-date mr-3">
+                                        <span class="text-muted small"><i class="fal fa-calendar-alt mr-1"></i> {{ $pubDate }}</span>
+                                    </div>
+                                    <span class="badge {{ $badgeCls }}">{{ $article->category_badge }}</span>
                                 </div>
-                                <span class="badge badge-primary">SPMI</span>
-                            </div>
-                            <h4 class="font-weight-bold mb-2">Pelaksanaan Audit Mutu Internal Semester Ganjil</h4>
-                            <div class="excerpt text-muted small mb-3">
-                                <p>Gugus Penjaminan Mutu FICT resmi memulai audit mutu untuk memverifikasi kesesuaian dokumen perkuliahan dan kurikulum OBE.</p>
-                            </div>
-                            <div class="btn-link-share d-flex justify-content-between align-items-center">
-                                <a href="#galeri-kegiatan" class="text-primary font-weight-bold">Lihat Foto <i class="icon-arrow-right-1"></i></a>
+                                <h4 class="font-weight-bold mb-2">{{ $article->title }}</h4>
+                                <div class="excerpt text-muted small mb-3">
+                                    <p>{{ $article->excerpt ?: \Illuminate\Support\Str::limit(strip_tags((string) $article->content), 140) }}</p>
+                                </div>
+                                <div class="btn-link-share d-flex justify-content-between align-items-center">
+                                    <a href="#galeri-kegiatan" class="text-primary font-weight-bold">Lihat Foto <i class="icon-arrow-right-1"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Berita 2 -->
-                <div class="col-xl-4 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="single-blog-card style-3 bg-white rounded shadow-sm overflow-hidden h-100">
-                        <div class="blog-featured-thumb bg-cover" style="background-image: url('{{ asset('img/foto/Meet3.jpeg') }}'); height: 210px;"></div>
-                        <div class="content p-4">
-                            <div class="post-top-meta d-flex flex-wrap align-items-center mb-2">
-                                <div class="post-date mr-3">
-                                    <span class="text-muted small"><i class="fal fa-calendar-alt mr-1"></i> 08 Oktober 2026</span>
-                                </div>
-                                <span class="badge badge-info">LAMINFOKOM</span>
-                            </div>
-                            <h4 class="font-weight-bold mb-2">Workshop Penyusunan LED Akreditasi Program Studi</h4>
-                            <div class="excerpt text-muted small mb-3">
-                                <p>Tim dosen dan pimpinan prodi Informatika & Sistem Informasi menyelaraskan bukti capaian kriteria LAMINFOKOM.</p>
-                            </div>
-                            <div class="btn-link-share d-flex justify-content-between align-items-center">
-                                <a href="#galeri-kegiatan" class="text-primary font-weight-bold">Lihat Foto <i class="icon-arrow-right-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Berita 3 -->
-                <div class="col-xl-4 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="150">
-                    <div class="single-blog-card style-3 bg-white rounded shadow-sm overflow-hidden h-100">
-                        <div class="blog-featured-thumb bg-cover" style="background-image: url('{{ asset('img/foto/Meet4.jpeg') }}'); height: 210px;"></div>
-                        <div class="content p-4">
-                            <div class="post-top-meta d-flex flex-wrap align-items-center mb-2">
-                                <div class="post-date mr-3">
-                                    <span class="text-muted small"><i class="fal fa-calendar-alt mr-1"></i> 25 September 2026</span>
-                                </div>
-                                <span class="badge badge-danger">RTM</span>
-                            </div>
-                            <h4 class="font-weight-bold mb-2">Rapat Tinjauan Manajemen Menetapkan 8 Rekomendasi</h4>
-                            <div class="excerpt text-muted small mb-3">
-                                <p>Pimpinan Fakultas menyepakati langkah strategis penguatan fasilitas komputasi dan percepatan publikasi ilmiah dosen.</p>
-                            </div>
-                            <div class="btn-link-share d-flex justify-content-between align-items-center">
-                                <a href="#galeri-kegiatan" class="text-primary font-weight-bold">Lihat Foto <i class="icon-arrow-right-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -563,126 +397,166 @@
                     <div class="section-title">
                         <a class="theme-btn-sm mb-15" data-aos="fade-up">PUSAT UNDUHAN</a>
                         <h1 data-aos="fade-up" data-aos-delay="100">Download Dokumen Mutu FICT</h1>
-                        <p class="mt-3 text-muted" data-aos="fade-up" data-aos-delay="150" style="max-width: 680px; margin: 0 auto;">
-                            Akses dan unduh berkas Standar Mutu dan Manual Mutu Sistem Penjaminan Mutu Internal (SPMI) Fakultas.
+                        <p class="mt-3 text-muted" data-aos="fade-up" data-aos-delay="150" style="max-width: 720px; margin: 0 auto;">
+                            Akses halaman khusus dan unduh berkas Kebijakan Mutu, Standar Mutu, Manual Mutu, serta Formulir Mutu Sistem Penjaminan Mutu Internal (SPMI) Fakultas.
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="row mt-5">
-                <!-- DOKUMEN STANDAR MUTU (#dokumen-standar-mutu) -->
-                <div class="col-lg-6 col-12 mb-4" id="dokumen-standar-mutu" data-aos="fade-right">
-                    <div class="p-4 bg-light rounded shadow-sm border h-100">
-                        <h4 class="font-weight-bold text-dark mb-2"><i class="fas fa-file-alt text-primary mr-2"></i> Dokumen Standar Mutu</h4>
-                        <p class="text-muted small mb-4">Kumpulan Standar SPMI Fakultas Informatika & Komputer:</p>
-
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Standar Kompetensi Lulusan (SKL) & CPL</h6>
-                                <small class="text-muted">PDF • Versi 2026 • 2.4 MB</small>
+                <!-- 1. DOKUMEN KEBIJAKAN MUTU (#dokumen-kebijakan-mutu) -->
+                <div class="col-lg-6 col-12 mb-4" id="dokumen-kebijakan-mutu" data-aos="fade-up">
+                    <div class="p-4 bg-light rounded shadow-sm border h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h4 class="font-weight-bold text-dark mb-0"><i class="fas fa-shield-alt text-primary mr-2"></i> Dokumen Kebijakan Mutu</h4>
+                                <span class="badge badge-primary">Pilar 01</span>
                             </div>
-                            <button class="btn btn-sm btn-primary" onclick="alert('Mengunduh Standar Kompetensi Lulusan')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
+                            <p class="text-muted small mb-4">Landasan kebijakan, arah strategis, dan tata kelola implementasi SPMI FICT:</p>
+
+                            <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
+                                <div>
+                                    <h6 class="font-weight-bold mb-1 text-dark">Buku Kebijakan SPMI FICT</h6>
+                                    <small class="text-muted">PDF • Edisi Revisi 2026 • 2.6 MB</small>
+                                </div>
+                                <a href="{{ route('download.kebijakan-mutu') }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Detail
+                                </a>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
+                                <div>
+                                    <h6 class="font-weight-bold mb-1 text-dark">Kebijakan Kurikulum Berbasis OBE FICT</h6>
+                                    <small class="text-muted">PDF • Versi 2026 • 2.1 MB</small>
+                                </div>
+                                <a href="{{ route('download.kebijakan-mutu') }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Detail
+                                </a>
+                            </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Standar Isi Pembelajaran & Kurikulum OBE</h6>
-                                <small class="text-muted">PDF • Versi 2026 • 3.1 MB</small>
-                            </div>
-                            <button class="btn btn-sm btn-primary" onclick="alert('Mengunduh Standar Isi Pembelajaran')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Standar Proses & Penilaian Pembelajaran</h6>
-                                <small class="text-muted">PDF • Versi 2026 • 1.9 MB</small>
-                            </div>
-                            <button class="btn btn-sm btn-primary" onclick="alert('Mengunduh Standar Proses Pembelajaran')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Standar Dosen & Tenaga Kependidikan</h6>
-                                <small class="text-muted">PDF • Versi 2026 • 1.5 MB</small>
-                            </div>
-                            <button class="btn btn-sm btn-primary" onclick="alert('Mengunduh Standar Dosen & Tendik')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Standar Sarana, Prasarana & Lab ICT</h6>
-                                <small class="text-muted">PDF • Versi 2026 • 2.8 MB</small>
-                            </div>
-                            <button class="btn btn-sm btn-primary" onclick="alert('Mengunduh Standar Sarana Prasarana')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
+                        <div class="mt-2">
+                            <a href="{{ route('download.kebijakan-mutu') }}" class="btn btn-primary btn-block font-weight-bold">
+                                Buka Halaman Dokumen Kebijakan Mutu <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- DOKUMEN MANUAL MUTU (#dokumen-manual-mutu) -->
-                <div class="col-lg-6 col-12 mb-4" id="dokumen-manual-mutu" data-aos="fade-left">
-                    <div class="p-4 bg-light rounded shadow-sm border h-100">
-                        <h4 class="font-weight-bold text-dark mb-2"><i class="fas fa-book text-info mr-2"></i> Dokumen Manual Mutu</h4>
-                        <p class="text-muted small mb-4">Pedoman Prosedur Operasional Siklus PPEPP FICT:</p>
-
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Manual Penetapan Standar Mutu (P)</h6>
-                                <small class="text-muted">PDF • Pedoman Penyusunan Standar • 1.8 MB</small>
+                <!-- 2. DOKUMEN STANDAR MUTU (#dokumen-standar-mutu) -->
+                <div class="col-lg-6 col-12 mb-4" id="dokumen-standar-mutu" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-4 bg-light rounded shadow-sm border h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h4 class="font-weight-bold text-dark mb-0"><i class="fas fa-file-alt text-primary mr-2"></i> Dokumen Standar Mutu</h4>
+                                <span class="badge badge-primary">Pilar 02</span>
                             </div>
-                            <button class="btn btn-sm btn-info" onclick="alert('Mengunduh Manual Penetapan')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
+                            <p class="text-muted small mb-4">Kumpulan Standar SPMI Pendidikan, Penelitian, dan PKM Fakultas Informatika & Komputer:</p>
+
+                            <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
+                                <div>
+                                    <h6 class="font-weight-bold mb-1 text-dark">Standar Kompetensi Lulusan (SKL) & CPL</h6>
+                                    <small class="text-muted">PDF • Versi 2026 • 2.4 MB</small>
+                                </div>
+                                <a href="{{ route('download.standar-mutu') }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Detail
+                                </a>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
+                                <div>
+                                    <h6 class="font-weight-bold mb-1 text-dark">Standar Isi Pembelajaran & Kurikulum OBE</h6>
+                                    <small class="text-muted">PDF • Versi 2026 • 3.1 MB</small>
+                                </div>
+                                <a href="{{ route('download.standar-mutu') }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Detail
+                                </a>
+                            </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Manual Pelaksanaan Standar Mutu (P)</h6>
-                                <small class="text-muted">PDF • Pedoman Implementasi Tridharma • 2.1 MB</small>
+                        <div class="mt-2">
+                            <a href="{{ route('download.standar-mutu') }}" class="btn btn-primary btn-block font-weight-bold">
+                                Buka Halaman Dokumen Standar Mutu <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. DOKUMEN MANUAL MUTU (#dokumen-manual-mutu) -->
+                <div class="col-lg-6 col-12 mb-4" id="dokumen-manual-mutu" data-aos="fade-up" data-aos-delay="150">
+                    <div class="p-4 bg-light rounded shadow-sm border h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h4 class="font-weight-bold text-dark mb-0"><i class="fas fa-book text-info mr-2"></i> Dokumen Manual Mutu</h4>
+                                <span class="badge badge-info">Pilar 03</span>
                             </div>
-                            <button class="btn btn-sm btn-info" onclick="alert('Mengunduh Manual Pelaksanaan')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
+                            <p class="text-muted small mb-4">Pedoman Prosedur Operasional Siklus PPEPP Fakultas Informatika & Komputer:</p>
+
+                            <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
+                                <div>
+                                    <h6 class="font-weight-bold mb-1 text-dark">Manual Penetapan & Pelaksanaan Standar Mutu</h6>
+                                    <small class="text-muted">PDF • Pedoman Siklus PPEPP • 1.8 MB</small>
+                                </div>
+                                <a href="{{ route('download.manual-mutu') }}" class="btn btn-sm btn-outline-info">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Detail
+                                </a>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
+                                <div>
+                                    <h6 class="font-weight-bold mb-1 text-dark">Manual Evaluasi & Audit Mutu Internal (AMI)</h6>
+                                    <small class="text-muted">PDF • Pedoman Auditor & Instrumen AMI • 3.4 MB</small>
+                                </div>
+                                <a href="{{ route('download.manual-mutu') }}" class="btn btn-sm btn-outline-info">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Detail
+                                </a>
+                            </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Manual Evaluasi & Audit Mutu Internal (E)</h6>
-                                <small class="text-muted">PDF • Pedoman Auditor & Instrumen AMI • 3.4 MB</small>
+                        <div class="mt-2">
+                            <a href="{{ route('download.manual-mutu') }}" class="btn btn-info btn-block font-weight-bold">
+                                Buka Halaman Dokumen Manual Mutu <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. DOKUMEN FORMULIR MUTU (#dokumen-formulir-mutu) -->
+                <div class="col-lg-6 col-12 mb-4" id="dokumen-formulir-mutu" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-4 bg-light rounded shadow-sm border h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h4 class="font-weight-bold text-dark mb-0"><i class="fas fa-clipboard-list text-success mr-2"></i> Dokumen Formulir Mutu</h4>
+                                <span class="badge badge-success">Pilar 04</span>
                             </div>
-                            <button class="btn btn-sm btn-info" onclick="alert('Mengunduh Manual Evaluasi')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
+                            <p class="text-muted small mb-4">Instrumen kerja, template RPS OBE, daftar tilik AMI, dan borang PTK:</p>
+
+                            <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
+                                <div>
+                                    <h6 class="font-weight-bold mb-1 text-dark">Formulir RPS & Kontrak Kuliah OBE</h6>
+                                    <small class="text-muted">DOCX / PDF • Versi 2026 • 850 KB</small>
+                                </div>
+                                <a href="{{ route('download.formulir-mutu') }}" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Detail
+                                </a>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
+                                <div>
+                                    <h6 class="font-weight-bold mb-1 text-dark">Formulir Daftar Tilik AMI & Tindakan Koreksi (PTK)</h6>
+                                    <small class="text-muted">DOCX / PDF • Versi 2026 • 1.2 MB</small>
+                                </div>
+                                <a href="{{ route('download.formulir-mutu') }}" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Detail
+                                </a>
+                            </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border mb-3">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Manual Pengendalian Standar & RTM (P)</h6>
-                                <small class="text-muted">PDF • Tata Cara RTM & Permintaan Koreksi • 1.6 MB</small>
-                            </div>
-                            <button class="btn btn-sm btn-info" onclick="alert('Mengunduh Manual Pengendalian')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between p-3 bg-white rounded border">
-                            <div>
-                                <h6 class="font-weight-bold mb-1 text-dark">Manual Peningkatan Standar Mutu (P)</h6>
-                                <small class="text-muted">PDF • Kaizen & Continuous Improvement • 1.4 MB</small>
-                            </div>
-                            <button class="btn btn-sm btn-info" onclick="alert('Mengunduh Manual Peningkatan')">
-                                <i class="fas fa-download mr-1"></i> Unduh
-                            </button>
+                        <div class="mt-2">
+                            <a href="{{ route('download.formulir-mutu') }}" class="btn btn-success btn-block font-weight-bold">
+                                Buka Halaman Dokumen Formulir Mutu <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -702,7 +576,7 @@
                 </div>
                 <div class="col-xl-5 col-12">
                     <div class="btn-wraper d-flex flex-wrap justify-content-xl-end mt-2 mt-md-4 mt-xl-0">
-                        <a href="mailto:pm.fict@horizon.ac.id" class="theme-btn">Layanan Aspirasi Mutu <i class="icon-arrow-right-1"></i></a>
+                        <a href="{{ route('kontak') }}" class="theme-btn">Layanan Aspirasi Mutu <i class="icon-arrow-right-1"></i></a>
                         <a href="#galeri-kegiatan" class="theme-btn">Dokumentasi Rapat <i class="icon-arrow-right-1"></i></a>
                     </div>
                 </div>

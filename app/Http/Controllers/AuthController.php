@@ -22,31 +22,39 @@ class AuthController extends Controller
     }
 
     /**
-     * Memproses percobaan login admin.
+     * Memproses percobaan login admin (menggunakan username atau email).
      */
     public function login(Request $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'string', 'email'],
+        if ($request->has('email') && ! $request->has('username')) {
+            $request->merge(['username' => $request->input('email')]);
+        }
+
+        $validated = $request->validate([
+            'username' => ['required', 'string'],
             'password' => ['required', 'string'],
         ], [
-            'email.required' => 'Alamat email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'password.required' => 'Kata sandi wajib diisi.',
+            'username.required' => 'Username wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
         ]);
 
         $remember = $request->boolean('remember');
+        $loginValue = $validated['username'];
+        $password = $validated['password'];
 
-        if (Auth::attempt($credentials, $remember)) {
+        $authenticated = Auth::attempt(['name' => $loginValue, 'password' => $password], $remember)
+            || Auth::attempt(['email' => $loginValue, 'password' => $password], $remember);
+
+        if ($authenticated) {
             $request->session()->regenerate();
 
             return redirect()->intended(route('admin.dashboard'));
         }
 
         return back()
-            ->withInput($request->only('email', 'remember'))
+            ->withInput($request->only('username', 'remember'))
             ->withErrors([
-                'email' => 'Email atau kata sandi yang dimasukkan tidak sesuai.',
+                'username' => 'Username atau password yang dimasukkan tidak sesuai.',
             ]);
     }
 
