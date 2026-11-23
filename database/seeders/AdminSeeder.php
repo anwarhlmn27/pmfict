@@ -16,8 +16,8 @@ class AdminSeeder extends Seeder
     {
         $data = [
             'name' => 'admin',
-            'email' => 'admin@horizon.ac.id',
-            'password' => Hash::make('admin123'),
+            'email' => 'fict.krw@horizon.ac.id',
+            'password' => Hash::make('Admin@2026'),
             'email_verified_at' => now(),
         ];
 
@@ -26,7 +26,7 @@ class AdminSeeder extends Seeder
         }
 
         User::updateOrCreate(
-            ['email' => 'admin@horizon.ac.id'],
+            ['email' => 'fict.krw@horizon.ac.id'],
             $data
         );
     }
