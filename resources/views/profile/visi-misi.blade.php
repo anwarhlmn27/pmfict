@@ -49,21 +49,17 @@
 
                             <h5 class="text-primary font-weight-bold mt-3"><i class="fas fa-bullseye mr-2"></i>Misi:</h5>
                             <ul class="list-unstyled mt-2 mb-0" style="line-height: 1.85;">
-                                <li class="mb-2 d-flex align-items-start">
-                                    <i class="fas fa-check-circle text-primary mr-2 mt-1"></i>
-                                    <span>Merumuskan dan memutakhirkan Standar Mutu SN-Dikti, BAN-PT, dan LAMINFOKOM.</span>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-primary mr-2"></i> Merumuskan dan memutakhirkan Standar Mutu SN-Dikti, BAN-PT, dan LAMINFOKOM.
                                 </li>
-                                <li class="mb-2 d-flex align-items-start">
-                                    <i class="fas fa-check-circle text-primary mr-2 mt-1"></i>
-                                    <span>Menyelenggarakan Audit Mutu Internal (AMI) secara berkala dan akuntabel.</span>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-primary mr-2"></i> Menyelenggarakan Audit Mutu Internal (AMI) secara berkala dan akuntabel.
                                 </li>
-                                <li class="mb-2 d-flex align-items-start">
-                                    <i class="fas fa-check-circle text-primary mr-2 mt-1"></i>
-                                    <span>Menyelenggarakan Rapat Tinjauan Manajemen (RTM) dan pengawalan tindakan perbaikan.</span>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-primary mr-2"></i> Menyelenggarakan Rapat Tinjauan Manajemen (RTM) dan pengawalan tindakan perbaikan.
                                 </li>
-                                <li class="d-flex align-items-start">
-                                    <i class="fas fa-check-circle text-primary mr-2 mt-1"></i>
-                                    <span>Mengintegrasikan sistem mutu digital melalui AQA dan LMS.</span>
+                                <li>
+                                    <i class="fas fa-check-circle text-primary mr-2"></i> Mengintegrasikan sistem mutu digital melalui AQA dan LMS.
                                 </li>
                             </ul>
                         </div>
