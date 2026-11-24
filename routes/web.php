@@ -66,7 +66,7 @@ Route::prefix('profile')->group(function () {
     })->name('profile.struktur');
 
     Route::get('/visi-misi', function () {
-        return redirect('/#visi-misi');
+        return view('profile.visi-misi');
     })->name('profile.visimisi');
 });
 

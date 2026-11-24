@@ -49,7 +49,7 @@
                             <li><a href="{{ url('/#profile') }}">Profile <i class="fas fa-angle-down"></i></a>
                                 <ul class="sub-menu">
                                     <li><a href="{{ url('/#struktur-organisasi') }}">Struktur Organisasi</a></li>
-                                    <li><a href="{{ url('/#visi-misi') }}">Visi dan Misi</a></li>
+                                    <li><a href="{{ route('profile.visimisi') }}">Visi dan Misi</a></li>
                                     <li><a href="{{ route('kontak') }}">Kontak Kami</a></li>
                                 </ul>
                             </li>
@@ -118,7 +118,7 @@
                                         <li><a class="has-arrow" href="{{ url('/#profile') }}">Profile</a>
                                             <ul class="sub-menu">
                                                 <li><a href="{{ url('/#struktur-organisasi') }}">Struktur Organisasi</a></li>
-                                                <li><a href="{{ url('/#visi-misi') }}">Visi dan Misi</a></li>
+                                                <li><a href="{{ route('profile.visimisi') }}">Visi dan Misi</a></li>
                                                 <li><a href="{{ route('kontak') }}">Kontak Kami</a></li>
                                             </ul>
                                         </li>

@@ -143,36 +143,8 @@
     <!-- ================= SECTION PROFILE ================= -->
     <section id="profile" class="about-wrapper techex-landing-page pt-60 pb-60">
         <div class="container">
-            
-            <!-- VISI DAN MISI (#visi-misi) -->
-            <div id="visi-misi" class="row align-items-center mb-60">
-                <div class="col-lg-6 pr-lg-4">
-                    <div class="about-img" data-aos="fade-right">
-                        <img src="{{ asset('img/foto/Meet3.jpeg') }}" class="img-fluid rounded shadow" alt="Visi Misi Mutu FICT" style="width: 100%; max-height: 360px; object-fit: cover;">
-                    </div>
-                </div>
-                <div class="col-lg-6 pl-lg-4">
-                    <div class="section-title">
-                        <a class="theme-btn-sm mb-15" data-aos="fade-left">PROFIL UNIT</a>
-                        <h1 data-aos="fade-left" data-aos-delay="100">Visi & Misi Penjaminan Mutu FICT</h1>
-                        <div data-aos="fade-left" data-aos-delay="150" class="mt-3">
-                            <h5 class="text-primary font-weight-bold">Visi:</h5>
-                            <p class="font-italic">"Menjadi unit penjaminan mutu fakultas yang unggul, profesional, dan berintegritas tinggi dalam mengawal perwujudan budaya mutu Tridharma Perguruan Tinggi di bidang teknologi informasi dan komputasi yang berdaya saing nasional maupun internasional."</p>
-                            
-                            <h5 class="text-primary font-weight-bold mt-3">Misi:</h5>
-                            <ul class="list-unstyled mt-2" style="line-height: 1.8;">
-                                <li><i class="fas fa-check-circle text-primary mr-2"></i> Merumuskan dan memutakhirkan Standar Mutu SN-Dikti, BAN-PT, dan LAMINFOKOM.</li>
-                                <li><i class="fas fa-check-circle text-primary mr-2"></i> Menyelenggarakan Audit Mutu Internal (AMI) secara berkala dan akuntabel.</li>
-                                <li><i class="fas fa-check-circle text-primary mr-2"></i> Menyelenggarakan Rapat Tinjauan Manajemen (RTM) dan pengawalan tindakan perbaikan.</li>
-                                <li><i class="fas fa-check-circle text-primary mr-2"></i> Mengintegrasikan sistem mutu digital melalui AQA dan LMS.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- STRUKTUR ORGANISASI (#struktur-organisasi) -->
-            <div id="struktur-organisasi" class="row align-items-center flex-row-reverse pt-40">
+            <div id="struktur-organisasi" class="row align-items-center flex-row-reverse">
                 <div class="col-lg-6 pl-lg-4">
                     <div class="about-img" data-aos="fade-left">
                         <img src="{{ asset('img/foto/Meet5.jpeg') }}" class="img-fluid rounded shadow" alt="Struktur Organisasi Penjaminan Mutu FICT" style="width: 100%; max-height: 360px; object-fit: cover;">

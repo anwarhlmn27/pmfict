@@ -51,7 +51,7 @@
         </div>
 
         <!-- Ringkasan Informasi Manual Mutu -->
-        <div class="row mb-4">
+        <!-- <div class="row mb-4">
             <div class="col-12">
                 <div class="bg-white p-4 rounded shadow-sm border">
                     <div class="row align-items-center">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Tabel Daftar Dokumen Manual Mutu -->
         <div class="row">

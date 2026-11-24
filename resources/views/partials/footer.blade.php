@@ -3,10 +3,10 @@
         <div class="container">
             <div class="row justify-content-between">
                 <!-- Col 1: About PM FICT -->
-                <div class="col-md-6 col-xl-3 col-12 pr-xl-4">
+                <!-- <div class="col-md-6 col-xl-3 col-12 pr-xl-4">
                     <div class="single-footer-wid site_footer_widget">
                         <a href="{{ url('/') }}" class="d-flex align-items-center mb-3 text-decoration-none">
-                            <img src="{{ asset('img/logo-2.png') }}" alt="PM FICT" style="max-height: 44px;">
+                            <img src="{{ asset('img/fict.png') }}" alt="PM FICT" style="max-height: 44px; background-color: white">
                             <span class="ml-2 font-weight-bold text-white" style="font-size: 20px;">PM FICT</span>
                         </a>
                         <p class="mt-4">
@@ -19,7 +19,7 @@
                             <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Col 2: Profile & SPME -->
                 <div class="col-md-6 col-xl-2 col-12">                        
@@ -29,7 +29,7 @@
                         </div>
                         <ul>
                             <li><a href="{{ url('/#struktur-organisasi') }}">Struktur Organisasi</a></li>
-                            <li><a href="{{ url('/#visi-misi') }}">Visi dan Misi</a></li>
+                            <li><a href="{{ route('profile.visimisi') }}">Visi dan Misi</a></li>
                             <li><a href="{{ route('kontak') }}">Kontak Kami</a></li>
                             <li><a href="{{ url('/#spme-banpt') }}">BAN-PT</a></li>
                             <li><a href="{{ url('/#spme-laminfokom') }}">LAMINFOKOM</a></li>
