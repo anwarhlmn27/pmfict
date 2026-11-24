@@ -31,25 +31,13 @@ Route::get('/', function () {
         ? Gallery::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
         : collect();
 
-    if ($galleries->isEmpty()) {
-        $galleries = collect(Gallery::defaultItems())->map(fn (array $item): object => (object) $item);
-    }
-
     $newsList = Schema::hasTable('news')
         ? News::where('is_published', true)->orderByDesc('published_at')->orderByDesc('id')->get()
         : collect();
 
-    if ($newsList->isEmpty()) {
-        $newsList = collect(News::defaultArticles())->map(fn (array $article): object => (object) $article);
-    }
-
     $organizationStructures = Schema::hasTable('organization_structures')
         ? OrganizationStructure::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
         : collect();
-
-    if ($organizationStructures->isEmpty()) {
-        $organizationStructures = collect(OrganizationStructure::defaultItems())->map(fn (array $item): object => (object) $item);
-    }
 
     return view('index', [
         'heroSliders' => $heroSliders,

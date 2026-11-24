@@ -157,12 +157,10 @@
                         <div data-aos="fade-right" data-aos-delay="150" class="mt-3">
                             <p>Tata kelola unit penjaminan mutu tingkat fakultas dan gugus kendali mutu program studi:</p>
                             @php
-                                $orgItems = isset($organizationStructures) && count($organizationStructures) > 0
-                                    ? $organizationStructures
-                                    : collect(\App\Models\OrganizationStructure::defaultItems())->map(fn (array $o): object => (object) $o);
+                                $orgItems = $organizationStructures ?? collect();
                             @endphp
                             <div class="row mt-3">
-                                @foreach($orgItems as $org)
+                                @forelse($orgItems as $org)
                                     <div class="col-sm-6 mb-3">
                                         <div class="p-3 border rounded bg-white shadow-sm h-100">
                                             <h6 class="font-weight-bold text-dark mb-1">
@@ -176,7 +174,11 @@
                                             @endif
                                         </div>
                                     </div>
-                                @endforeach
+                                @empty
+                                    <div class="col-12">
+                                        <p class="text-muted small mb-0">Belum ada data struktur organisasi.</p>
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -249,7 +251,7 @@
         </div>
     </section>
 
-    <!-- ================= SECTION DOKUMENTASI KEGIATAN & RAPAT MUTU (10 FOTO) ================= -->
+    <!-- ================= SECTION DOKUMENTASI KEGIATAN & RAPAT MUTU ================= -->
     <section id="galeri-kegiatan" class="pt-80 pb-80">
         <div class="container">
             <div class="row align-items-center">
@@ -258,7 +260,7 @@
                         <a class="theme-btn-sm mb-15" data-aos="fade-up">DOKUMENTASI FOTO</a>
                         <h1 data-aos="fade-up" data-aos-delay="100">Galeri Rapat & Kegiatan Penjaminan Mutu FICT</h1>
                         <p class="mt-3 text-muted" data-aos="fade-up" data-aos-delay="150" style="max-width: 720px; margin: 0 auto;">
-                            Dokumentasi foto kegiatan rapat gugus mutu, audit mutu internal, review kurikulum, dan koordinasi akreditasi di folder <code>public/img/foto</code>.
+                            Dokumentasi foto kegiatan rapat gugus mutu, audit mutu internal, review kurikulum, dan koordinasi akreditasi.
                         </p>
                     </div>
                 </div>
@@ -266,36 +268,40 @@
 
             <!-- Carousel Foto Rapat Mutu (3 Foto Per Tampilan, Scroll ke Kanan) -->
             @php
-                $galleryItems = isset($galleries) && count($galleries) > 0
-                    ? $galleries
-                    : collect(\App\Models\Gallery::defaultItems())->map(fn (array $g): object => (object) $g);
+                $galleryItems = $galleries ?? collect();
             @endphp
-            <div class="galeri-rapat-slider owl-carousel owl-theme mt-50" data-aos="fade-up">
-                @foreach($galleryItems as $item)
-                    @php
-                        $imgUrl = $item instanceof \App\Models\Gallery
-                            ? $item->imageUrl()
-                            : (str_starts_with($item->image_path, 'http') ? $item->image_path : asset($item->image_path));
-                        $badgeCls = $item instanceof \App\Models\Gallery
-                            ? $item->badgeClass()
-                            : \App\Models\Gallery::resolveBadgeClass($item->badge ?? 'SPMI');
-                    @endphp
-                    <div class="single-galeri-item">
-                        <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
-                            <a href="{{ $imgUrl }}" class="popup-gallery" title="{{ $item->title }}">
-                                <img src="{{ $imgUrl }}" class="img-fluid" alt="{{ $item->title }}" style="height: 230px; width: 100%; object-fit: cover;">
-                            </a>
-                            <div class="card-body p-3">
-                                <span class="badge {{ $badgeCls }} mb-2">{{ $item->badge }}</span>
-                                <h6 class="font-weight-bold text-dark mb-1">{{ $item->title }}</h6>
-                                @if(!empty($item->subtitle))
-                                    <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> {{ $item->subtitle }}</small>
-                                @endif
+            @if(count($galleryItems) > 0)
+                <div class="galeri-rapat-slider owl-carousel owl-theme mt-50" data-aos="fade-up">
+                    @foreach($galleryItems as $item)
+                        @php
+                            $imgUrl = $item instanceof \App\Models\Gallery
+                                ? $item->imageUrl()
+                                : (str_starts_with($item->image_path, 'http') ? $item->image_path : asset($item->image_path));
+                            $badgeCls = $item instanceof \App\Models\Gallery
+                                ? $item->badgeClass()
+                                : \App\Models\Gallery::resolveBadgeClass($item->badge ?? 'SPMI');
+                        @endphp
+                        <div class="single-galeri-item">
+                            <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
+                                <a href="{{ $imgUrl }}" class="popup-gallery" title="{{ $item->title }}">
+                                    <img src="{{ $imgUrl }}" class="img-fluid" alt="{{ $item->title }}" style="height: 230px; width: 100%; object-fit: cover;">
+                                </a>
+                                <div class="card-body p-3">
+                                    <span class="badge {{ $badgeCls }} mb-2">{{ $item->badge }}</span>
+                                    <h6 class="font-weight-bold text-dark mb-1">{{ $item->title }}</h6>
+                                    @if(!empty($item->subtitle))
+                                        <small class="text-muted"><i class="fal fa-calendar-alt mr-1"></i> {{ $item->subtitle }}</small>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-center text-muted py-5 mt-4 bg-light rounded border">
+                    Belum ada dokumentasi foto galeri kegiatan.
+                </div>
+            @endif
         </div>
     </section>
 
@@ -315,12 +321,10 @@
             </div>
 
             @php
-                $articles = isset($newsList) && count($newsList) > 0
-                    ? $newsList
-                    : collect(\App\Models\News::defaultArticles())->map(fn (array $a): object => (object) $a);
+                $articles = $newsList ?? collect();
             @endphp
             <div class="row mt-5">
-                @foreach($articles as $article)
+                @forelse($articles as $article)
                     @php
                         $thumbUrl = $article instanceof \App\Models\News
                             ? $article->thumbnailUrl()
@@ -356,7 +360,13 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12">
+                        <div class="text-center text-muted py-5 bg-white rounded border">
+                            Belum ada berita atau agenda yang dipublikasikan.
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -628,16 +638,17 @@
     $(document).ready(function() {
         var $galeri = $('.galeri-rapat-slider');
         if ($galeri.length && !$galeri.hasClass('owl-loaded')) {
+            var itemCount = $galeri.children('.single-galeri-item').length;
             $galeri.owlCarousel({
                 items: 3,
                 margin: 24,
-                loop: true,
-                autoplay: true,
+                loop: itemCount > 3,
+                autoplay: itemCount > 1,
                 autoplayTimeout: 5000,
                 autoplayHoverPause: true,
                 smartSpeed: 600,
-                nav: true,
-                dots: true,
+                nav: itemCount > 1,
+                dots: itemCount > 1,
                 navText: ['<i class="fal fa-arrow-left"></i>', '<i class="fal fa-arrow-right"></i>'],
                 responsive: {
                     0: {
@@ -645,11 +656,11 @@
                         margin: 15
                     },
                     768: {
-                        items: 2,
+                        items: Math.min(2, Math.max(1, itemCount)),
                         margin: 20
                     },
                     992: {
-                        items: 3,
+                        items: Math.min(3, Math.max(1, itemCount)),
                         margin: 24
                     }
                 }
