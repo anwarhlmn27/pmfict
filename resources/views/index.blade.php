@@ -61,8 +61,8 @@
 
 <div class="content-area">
 
-    <!-- ================= SECTION SIKLUS PPEPP ================= -->
-    <section id="ppepp" class="we-provide-solutions pt-80 pb-80">
+    <!-- ================= SECTION SIKLUS PPEPP (FLOWMAP) ================= -->
+    <section id="ppepp" class="we-provide-solutions pt-80 pb-100">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-12 text-center">
@@ -76,63 +76,145 @@
                 </div>
             </div>
 
-            <div class="row mt-4">
+            <div class="ppepp-flowmap-wrapper">
                 <!-- 1. Penetapan (#ppepp-penetapan) -->
-                <div class="col-12 col-md-6 col-xl" id="ppepp-penetapan" data-aos="fade-up">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
-                        <div class="number">P</div>
-                        <div class="content"> 
+                <div class="ppepp-flow-col" id="ppepp-penetapan" data-aos="fade-up">
+                    <div class="ppepp-flow-card card-shape-1">
+                        <div class="watermark-letter">P</div>
+                        <div class="ppepp-card-body">
                             <h3>Penetapan</h3>
                             <p>Penetapan kebijakan SPMI, manual mutu, standar akademik & non-akademik FICT sesuai SN-Dikti.</p>
-                            <span class="read-more text-uppercase">Tahap 01</span>
+                            <div class="stage-label">TAHAP 01</div>
                         </div>
                     </div>
+                    <!-- Panah Bawah Melengkung ke Atas (Menuju Pelaksanaan) -->
+                    <svg class="ppepp-svg-connector svg-bottom-j" viewBox="0 0 140 190" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gradFlow1" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#005bea"/>
+                                <stop offset="100%" stop-color="#0088ff"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M 5 172 C 72 172, 114 128, 114 54 L 114 38" stroke="url(#gradFlow1)" stroke-width="18" stroke-linecap="butt" fill="none"/>
+                        <polygon points="114,4 90,42 138,42" fill="#0088ff"/>
+                    </svg>
                 </div>
 
                 <!-- 2. Pelaksanaan (#ppepp-pelaksanaan) -->
-                <div class="col-12 col-md-6 col-xl" id="ppepp-pelaksanaan" data-aos="fade-up" data-aos-delay="100">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
-                        <div class="number">P</div>
-                        <div class="content"> 
+                <div class="ppepp-flow-col" id="ppepp-pelaksanaan" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Panah Atas Melengkung ke Bawah (Menuju Evaluasi) -->
+                    <svg class="ppepp-svg-connector svg-top-arch" viewBox="0 0 250 220" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gradFlow2" x1="0%" y1="50%" x2="100%" y2="50%">
+                                <stop offset="0%" stop-color="#0284c7"/>
+                                <stop offset="55%" stop-color="#0d9488"/>
+                                <stop offset="100%" stop-color="#14b8a6"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M 14 195 L 14 115 C 14 40, 62 14, 125 14 C 188 14, 226 40, 226 115 L 226 175" stroke="url(#gradFlow2)" stroke-width="18" stroke-linecap="butt" fill="none"/>
+                        <polygon points="226,210 202,172 250,172" fill="#14b8a6"/>
+                    </svg>
+                    <div class="ppepp-flow-card card-shape-pill">
+                        <div class="watermark-letter">P</div>
+                        <div class="ppepp-card-body">
                             <h3>Pelaksanaan</h3>
                             <p>Operasionalisasi standar dalam proses perkuliahan di LMS, riset dosen-mahasiswa, dan PKM.</p>
-                            <span class="read-more text-uppercase">Tahap 02</span>
+                            <div class="stage-label">TAHAP 02</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 3. Evaluasi (#ppepp-evaluasi) -->
-                <div class="col-12 col-md-6 col-xl" id="ppepp-evaluasi" data-aos="fade-up" data-aos-delay="150">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
-                        <div class="number">E</div>
-                        <div class="content"> 
+                <div class="ppepp-flow-col" id="ppepp-evaluasi" data-aos="fade-up" data-aos-delay="150">
+                    <!-- Ikon Ilustrasi Evaluasi (Gear, Grafik & Checkmark) di Atas Card Evaluasi -->
+                    <div class="ppepp-eval-badge" aria-hidden="true">
+                        <svg width="86" height="82" viewBox="0 0 86 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Gear Besar -->
+                            <path d="M25 14.5C23.6 14.5 22.4 15.6 22.4 17V18.4C21.3 18.8 20.3 19.4 19.4 20.2L18.2 19.5C17 18.8 15.5 19.2 14.8 20.4L13.5 22.6C12.8 23.8 13.2 25.3 14.4 26L15.6 26.7C15.4 27.9 15.4 29.1 15.6 30.3L14.4 31C13.2 31.7 12.8 33.2 13.5 34.4L14.8 36.6C15.5 37.8 17 38.2 18.2 37.5L19.4 36.8C20.3 37.6 21.3 38.2 22.4 38.6V40C22.4 41.4 23.6 42.5 25 42.5H27.6C29 42.5 30.2 41.4 30.2 40V38.6C31.3 38.2 32.3 37.6 33.2 36.8L34.4 37.5C35.6 38.2 37.1 37.8 37.8 36.6L39.1 34.4C39.8 33.2 39.4 31.7 38.2 31L37 30.3C37.2 29.1 37.2 27.9 37 26.7L38.2 26C39.4 25.3 39.8 23.8 39.1 22.6L37.8 20.4C37.1 19.2 35.6 18.8 34.4 19.5L33.2 20.2C32.3 19.4 31.3 18.8 30.2 18.4V17C30.2 15.6 29 14.5 27.6 14.5H25ZM26.3 23.5C29.1 23.5 31.3 25.7 31.3 28.5C31.3 31.3 29.1 33.5 26.3 33.5C23.5 33.5 21.3 31.3 21.3 28.5C21.3 25.7 23.5 23.5 26.3 23.5Z" fill="#1e3a5f"/>
+                            <!-- Gear Kecil -->
+                            <circle cx="43" cy="15" r="5.5" stroke="#60a5fa" stroke-width="3.5" stroke-dasharray="3 2"/>
+                            <!-- Grafik Batang -->
+                            <rect x="22" y="54" width="7" height="15" rx="2" fill="#93c5fd"/>
+                            <rect x="33" y="47" width="7" height="22" rx="2" fill="#60a5fa"/>
+                            <rect x="44" y="38" width="7" height="31" rx="2" fill="#3b82f6"/>
+                            <rect x="55" y="27" width="8" height="42" rx="2" fill="#bfdbfe"/>
+                            <!-- Garis Kurva & Panah Naik -->
+                            <path d="M18 52 C 32 48, 45 36, 58 17" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round"/>
+                            <polygon points="62,11 52,16 61,22" fill="#0f766e"/>
+                            <!-- Lingkaran Checkmark Biru -->
+                            <circle cx="57" cy="64" r="12" fill="#0284c7" stroke="#eef5ff" stroke-width="2.5"/>
+                            <path d="M51.5 64.2L55.2 67.8L63 60" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+
+                    <div class="ppepp-flow-card card-shape-3">
+                        <div class="watermark-letter">E</div>
+                        <div class="ppepp-card-body">
                             <h3>Evaluasi</h3>
                             <p>Pelaksanaan Audit Mutu Internal (AMI) semesteran, monev CPL, dan survei kepuasan mahasiswa.</p>
-                            <span class="read-more text-uppercase">Tahap 03</span>
+                            <div class="stage-label">TAHAP 03</div>
                         </div>
                     </div>
+
+                    <!-- Panah Bawah Melengkung U ke Atas (Menuju Pengendalian) -->
+                    <svg class="ppepp-svg-connector svg-bottom-arch" viewBox="0 0 250 215" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gradFlow3" x1="0%" y1="50%" x2="100%" y2="50%">
+                                <stop offset="0%" stop-color="#0072ff"/>
+                                <stop offset="55%" stop-color="#0284c7"/>
+                                <stop offset="100%" stop-color="#14b8a6"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M 14 14 L 14 100 C 14 175, 62 200, 125 200 C 188 200, 226 175, 226 100 L 226 42" stroke="url(#gradFlow3)" stroke-width="18" stroke-linecap="butt" fill="none"/>
+                        <polygon points="226,6 202,44 250,44" fill="#14b8a6"/>
+                    </svg>
                 </div>
 
                 <!-- 4. Pengendalian (#ppepp-pengendalian) -->
-                <div class="col-12 col-md-6 col-xl" id="ppepp-pengendalian" data-aos="fade-up" data-aos-delay="200">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
-                        <div class="number">P</div>
-                        <div class="content"> 
+                <div class="ppepp-flow-col" id="ppepp-pengendalian" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Panah Atas Melengkung ke Bawah (Menuju Peningkatan) -->
+                    <svg class="ppepp-svg-connector svg-top-arch" viewBox="0 0 250 220" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gradFlow4" x1="0%" y1="50%" x2="100%" y2="50%">
+                                <stop offset="0%" stop-color="#0284c7"/>
+                                <stop offset="55%" stop-color="#0d9488"/>
+                                <stop offset="100%" stop-color="#14b8a6"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M 14 195 L 14 115 C 14 40, 62 14, 125 14 C 188 14, 226 40, 226 115 L 226 175" stroke="url(#gradFlow4)" stroke-width="18" stroke-linecap="butt" fill="none"/>
+                        <polygon points="226,210 202,172 250,172" fill="#14b8a6"/>
+                    </svg>
+
+                    <div class="ppepp-flow-card card-shape-pill">
+                        <div class="watermark-letter">P</div>
+                        <div class="ppepp-card-body">
                             <h3>Pengendalian</h3>
                             <p>Rapat Tinjauan Manajemen (RTM) dan formulasi tindakan korektif (PTK) atas temuan deviasi mutu.</p>
-                            <span class="read-more text-uppercase">Tahap 04</span>
+                            <div class="stage-label">TAHAP 04</div>
                         </div>
                     </div>
+
+                    <!-- Panah Bawah Kanan Melengkung ke Atas (Menuju Peningkatan) -->
+                    <svg class="ppepp-svg-connector svg-bottom-j" viewBox="0 0 140 190" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gradFlow5" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#14b8a6"/>
+                                <stop offset="100%" stop-color="#0284c7"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M 5 172 C 72 172, 114 128, 114 54 L 114 38" stroke="url(#gradFlow5)" stroke-width="18" stroke-linecap="butt" fill="none"/>
+                        <polygon points="114,4 90,42 138,42" fill="#0284c7"/>
+                    </svg>
                 </div>
 
                 <!-- 5. Peningkatan (#ppepp-peningkatan) -->
-                <div class="col-12 col-md-6 col-xl" id="ppepp-peningkatan" data-aos="fade-up" data-aos-delay="250">
-                    <div class="single-provide-solutions" style="height: 100%; min-height: 230px;">
-                        <div class="number">P</div>
-                        <div class="content"> 
+                <div class="ppepp-flow-col" id="ppepp-peningkatan" data-aos="fade-up" data-aos-delay="250">
+                    <div class="ppepp-flow-card card-shape-5">
+                        <div class="watermark-letter">P</div>
+                        <div class="ppepp-card-body">
                             <h3>Peningkatan</h3>
                             <p>Peningkatan standar mutu (Continuous Improvement) guna mengantarkan akreditasi program studi ke tingkat Unggul.</p>
-                            <span class="read-more text-uppercase">Tahap 05</span>
+                            <div class="stage-label">TAHAP 05</div>
                         </div>
                     </div>
                 </div>
@@ -373,7 +455,7 @@
 </div><!-- content-area -->
 
 <!-- ================= CTA BANNER ================= -->
-<section class="cta-banner style-3">
+<!-- <section class="cta-banner style-3">
     <div class="container-fluid bg-cover section-bg" style="background-image: url('{{ asset('img/cta_bg1.png') }}');">
         <div class="cta-content">
             <div class="row align-items-center">
@@ -389,12 +471,165 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 @endsection
 
 @push('styles')
 <style>
+    /* ==========================================================================
+       FLOWMAP SIKLUS PPEPP (5 TAHAPAN BERKESINAMBUNGAN)
+       ========================================================================== */
+    .ppepp-flowmap-wrapper {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 28px;
+        margin-top: 72px;
+        margin-bottom: 35px;
+        position: relative;
+        align-items: stretch;
+    }
+    .ppepp-flow-col {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        z-index: 2;
+    }
+    .ppepp-flow-card {
+        position: relative;
+        flex: 1;
+        min-height: 315px;
+        padding: 46px 20px 34px;
+        background: linear-gradient(180deg, #ebf3fe 0%, #f4f8ff 100%);
+        box-shadow: 0 14px 28px rgba(15, 41, 66, 0.08);
+        overflow: hidden;
+        z-index: 2;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .ppepp-flow-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 34px rgba(8, 106, 215, 0.14);
+    }
+    /* Bentuk Spesifik Tiap Kartu Sesuai Flowmap */
+    .ppepp-flow-card.card-shape-1,
+    .ppepp-flow-card.card-shape-3 {
+        border-radius: 14px 14px 92px 92px;
+    }
+    .ppepp-flow-card.card-shape-pill {
+        border-radius: 92px;
+        background: linear-gradient(180deg, #ebf3fe 0%, #f7faff 55%, #ffffff 100%);
+    }
+    .ppepp-flow-card.card-shape-5 {
+        border-radius: 14px 14px 82px 14px;
+        min-height: 335px;
+    }
+    /* Huruf Watermark P - P - E - P - P */
+    .ppepp-flow-card .watermark-letter {
+        position: absolute;
+        top: 6px;
+        left: 10px;
+        font-size: 62px;
+        font-weight: 800;
+        line-height: 1;
+        color: rgba(59, 130, 246, 0.16);
+        pointer-events: none;
+        user-select: none;
+    }
+    .ppepp-card-body {
+        position: relative;
+        z-index: 3;
+    }
+    .ppepp-card-body h3 {
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        margin-bottom: 12px !important;
+    }
+    .ppepp-card-body p {
+        font-size: 13.5px !important;
+        line-height: 1.62 !important;
+        color: #475569 !important;
+        margin-bottom: 18px !important;
+    }
+    .ppepp-card-body .stage-label {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #0284c7;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+    /* Ikon Ilustrasi di Atas Kartu Evaluasi */
+    .ppepp-eval-badge {
+        position: absolute;
+        top: -54px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 6;
+        pointer-events: none;
+        filter: drop-shadow(0 6px 12px rgba(15, 41, 66, 0.08));
+    }
+    /* SVG Konektor Panah Melengkung */
+    .ppepp-svg-connector {
+        position: absolute;
+        pointer-events: none;
+        z-index: 4;
+        overflow: visible;
+    }
+    /* Panah Bawah J (Bawah Kartu 1 & Kartu 4) */
+    .ppepp-svg-connector.svg-bottom-j {
+        bottom: -36px;
+        left: 44%;
+        width: calc(56% + 34px);
+        height: 185px;
+    }
+    /* Panah Lengkung Atas U (Atas Kartu 2 & Kartu 4) */
+    .ppepp-svg-connector.svg-top-arch {
+        top: -36px;
+        left: -21px;
+        width: calc(100% + 44px);
+        height: 215px;
+    }
+    /* Panah Lengkung Bawah U (Bawah Kartu 3) */
+    .ppepp-svg-connector.svg-bottom-arch {
+        bottom: -38px;
+        left: -21px;
+        width: calc(100% + 44px);
+        height: 205px;
+    }
+
+    /* Responsif Tablet & Mobile */
+    @media (max-width: 1199px) {
+        .ppepp-flowmap-wrapper {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 45px;
+        }
+        .ppepp-svg-connector {
+            display: none;
+        }
+        .ppepp-flow-card,
+        .ppepp-flow-card.card-shape-1,
+        .ppepp-flow-card.card-shape-3,
+        .ppepp-flow-card.card-shape-pill,
+        .ppepp-flow-card.card-shape-5 {
+            border-radius: 20px;
+            min-height: 260px;
+        }
+    }
+    @media (max-width: 767px) {
+        .ppepp-flowmap-wrapper {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 35px;
+        }
+        .ppepp-eval-badge {
+            display: none;
+        }
+    }
+
     /* Styling Galeri Rapat Slider */
     .galeri-rapat-slider .single-galeri-item {
         padding: 10px 5px;

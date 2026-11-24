@@ -5,9 +5,9 @@
                 <div class="col-md-7">
                     <div class="header-cta">
                         <ul>
-                            <li><a href="#"><i class="icon-location-dot"></i>Gedung FICT, Kampus Horizon University</a></li>
-                            <li><a href="mailto:pm.fict@horizon.ac.id"><i class="fal fa-envelope"></i>pm.fict@horizon.ac.id</a></li>
-                            <li><a href="tel:+622678458888"><i class="fal fa-phone"></i>(0267) 845-8888</a></li>
+                            <li><a href="#"><i class="icon-location-dot"></i>FICT, Kampus Horizon University</a></li>
+                            <li><a href="mailto:pm.fict@horizon.ac.id"><i class="fal fa-envelope"></i>fict.krw@horizon.ac.id</a></li>
+                            <li><a href="tel:+622678458888"><i class="fal fa-phone"></i>(+62) 811-8454-800</a></li>
                         </ul>
                     </div>
                 </div>
@@ -75,16 +75,6 @@
                                 </ul>
                             </li>
 
-                            <!-- 6. Aplikasi -->
-                            <li><a href="#">Aplikasi <i class="fas fa-angle-down"></i></a>
-                                <ul class="sub-menu">
-                                    <li><a href="https://spmi.horizon.ac.id/login" target="_blank" rel="noopener noreferrer">AQA</a></li>
-                                    <li><a href="https://lms.horizon.ac.id/" target="_blank" rel="noopener noreferrer">LMS</a></li>
-                                    <li><a href="#">Repository</a></li>
-                                    <li><a href="{{ route('login') }}">Login</a></li>
-                                </ul>
-                            </li>
-
                             <!-- 7. PPEPP -->
                             <li><a href="{{ url('/#ppepp') }}">PPEPP <i class="fas fa-angle-down"></i></a>
                                 <ul class="sub-menu">
@@ -93,6 +83,16 @@
                                     <li><a href="{{ url('/#ppepp-evaluasi') }}">Evaluasi</a></li>
                                     <li><a href="{{ url('/#ppepp-pengendalian') }}">Pengendalian</a></li>
                                     <li><a href="{{ url('/#ppepp-peningkatan') }}">Peningkatan</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- 6. Aplikasi -->
+                            <li><a href="#">Aplikasi <i class="fas fa-angle-down"></i></a>
+                                <ul class="sub-menu">
+                                    <li><a href="https://spmi.horizon.ac.id/login" target="_blank" rel="noopener noreferrer">AQA</a></li>
+                                    <li><a href="https://lms.horizon.ac.id/" target="_blank" rel="noopener noreferrer">LMS</a></li>
+                                    <li><a href="#">Repository</a></li>
+                                    <li><a href="{{ route('login') }}">Login</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -158,9 +158,9 @@
                                 </nav>
     
                                 <div class="action-bar">
-                                    <a href="#"><i class="icon-location-dot"></i>Gedung FICT, Kampus Horizon University</a>
-                                    <a href="mailto:pm.fict@horizon.ac.id"><i class="fal fa-envelope-open-text"></i>pm.fict@horizon.ac.id</a>
-                                    <a href="tel:02678458888"><i class="fal fa-phone"></i>(0267) 845-8888</a>
+                                    <a href="#"><i class="icon-location-dot"></i>FICT, Kampus Horizon University</a>
+                                    <a href="mailto:pm.fict@horizon.ac.id"><i class="fal fa-envelope-open-text"></i>fict.krw@horizon.ac.id</a>
+                                    <a href="tel:+622678458888"><i class="fal fa-phone"></i>(+62) 811-8454-800</a>
                                 </div>
                             </div>                            
                         </div>

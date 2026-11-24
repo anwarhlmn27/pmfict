@@ -68,7 +68,7 @@
                         </ul>
                         <div class="footer-contact-info text-white-50" style="font-size: 13px;">
                             <p class="mb-1"><i class="fal fa-map-marker-alt mr-2 text-primary"></i> Gedung FICT, Kampus Horizon University</p>
-                            <p class="mb-0"><i class="fal fa-envelope mr-2 text-primary"></i> pm.fict@horizon.ac.id</p>
+                            <p class="mb-0"><i class="fal fa-envelope mr-2 text-primary"></i> fict.krw@horizon.ac.id</p>
                         </div>
                     </div>
                 </div>
