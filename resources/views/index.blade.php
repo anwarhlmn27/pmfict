@@ -76,6 +76,13 @@
                 </div>
             </div>
 
+            @if(!empty($ppeppImageUrl))
+                <div class="mt-4 text-center" data-aos="fade-up">
+                    <a href="{{ $ppeppImageUrl }}" class="popup-gallery" title="Siklus PPEPP Penjaminan Mutu FICT">
+                        <img src="{{ $ppeppImageUrl }}" alt="Siklus PPEPP Penjaminan Mutu FICT" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-height: 540px; width: auto;">
+                    </a>
+                </div>
+            @else
             <div class="ppepp-flowmap-wrapper">
                 <!-- 1. Penetapan (#ppepp-penetapan) -->
                 <div class="ppepp-flow-col" id="ppepp-penetapan" data-aos="fade-up">
@@ -219,6 +226,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </section>
 

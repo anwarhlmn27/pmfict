@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OrganizationStructureController;
 use App\Http\Controllers\Admin\QualityDocumentController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\ContactController;
@@ -14,6 +15,7 @@ use App\Models\Gallery;
 use App\Models\HeroSlider;
 use App\Models\News;
 use App\Models\OrganizationStructure;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
@@ -39,11 +41,14 @@ Route::get('/', function () {
         ? OrganizationStructure::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
         : collect();
 
+    $ppeppImageUrl = SiteSetting::resolveImageUrl(SiteSetting::getValue('ppepp_image_path'));
+
     return view('index', [
         'heroSliders' => $heroSliders,
         'galleries' => $galleries,
         'newsList' => $newsList,
         'organizationStructures' => $organizationStructures,
+        'ppeppImageUrl' => $ppeppImageUrl,
     ]);
 })->name('home');
 
@@ -148,6 +153,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::post('/quality-documents', [QualityDocumentController::class, 'store'])->name('quality-documents.store');
     Route::put('/quality-documents/{qualityDocument}', [QualityDocumentController::class, 'update'])->name('quality-documents.update');
     Route::delete('/quality-documents/{qualityDocument}', [QualityDocumentController::class, 'destroy'])->name('quality-documents.destroy');
+
+    // Site Settings Update (including Siklus PPEPP image)
+    Route::post('/site-settings', [SiteSettingController::class, 'update'])->name('site-settings.update');
 });
 
 // PPEPP Menu

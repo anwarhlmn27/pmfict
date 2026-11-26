@@ -8,6 +8,7 @@ use App\Models\HeroSlider;
 use App\Models\News;
 use App\Models\OrganizationStructure;
 use App\Models\QualityDocument;
+use App\Models\SiteSetting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -60,6 +61,16 @@ class DashboardController extends Controller
             ? OrganizationStructure::orderBy('sort_order')->orderBy('id')->get()
             : collect();
 
+        $siteSettings = [
+            'site_email' => SiteSetting::getValue('site_email', 'pm.fict@horizon.ac.id'),
+            'site_phone' => SiteSetting::getValue('site_phone', '(0267) 845-8888'),
+            'site_address' => SiteSetting::getValue('site_address', 'Gedung FICT, Kampus Horizon University Indonesia, Jl. Pangkal Perjuangan By Pass KM. 1, Karawang'),
+            'site_maps_url' => SiteSetting::getValue('site_maps_url', 'https://maps.app.goo.gl/DDstLPTdgou3sE1q7'),
+            'site_visi' => SiteSetting::getValue('site_visi', 'Menjadi unit penjaminan mutu fakultas yang unggul, profesional, dan berintegritas tinggi dalam mengawal perwujudan budaya mutu Tridharma Perguruan Tinggi di bidang teknologi informasi dan komputasi yang berdaya saing nasional maupun internasional.'),
+            'ppepp_image_path' => SiteSetting::getValue('ppepp_image_path'),
+            'ppepp_image_url' => SiteSetting::resolveImageUrl(SiteSetting::getValue('ppepp_image_path')),
+        ];
+
         return view('admin.dashboard', [
             'user' => $request->user(),
             'stats' => $stats,
@@ -70,6 +81,7 @@ class DashboardController extends Controller
             'heroSliders' => $heroSliders,
             'galleries' => $galleries,
             'organizationStructures' => $organizationStructures,
+            'siteSettings' => $siteSettings,
         ]);
     }
 }

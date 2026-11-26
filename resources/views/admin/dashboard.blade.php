@@ -1125,27 +1125,67 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form onsubmit="event.preventDefault(); alert('Pengaturan disimpan!');">
+                            <form action="{{ route('admin.site-settings.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="_tab" value="settings">
                                 <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div class="p-3 rounded border bg-light">
+                                            <label class="font-weight-bold small d-block mb-2">
+                                                <i class="fal fa-image text-primary mr-1"></i> Gambar Flowmap Siklus PPEPP (Halaman Utama)
+                                            </label>
+                                            <div class="row align-items-center">
+                                                <div class="col-md-6 mb-2 mb-md-0">
+                                                    <input type="file" name="ppepp_image" class="form-control-file form-control-admin p-1 bg-white" accept=".jpg,.jpeg,.png,.webp">
+                                                    <small class="text-muted d-block mt-1">
+                                                        Format: JPG, PNG, WEBP (Maks. 4MB). Jika diisi, gambar ini akan menggantikan tampilan flowmap bawaan di halaman utama.
+                                                    </small>
+                                                    @if(!empty($siteSettings['ppepp_image_path']))
+                                                        <div class="custom-control custom-checkbox mt-2">
+                                                            <input type="checkbox" class="custom-control-input" id="remove_ppepp_image" name="remove_ppepp_image" value="1">
+                                                            <label class="custom-control-label small text-danger font-weight-bold" for="remove_ppepp_image">
+                                                                Hapus gambar &amp; kembalikan ke flowmap bawaan
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="col-md-6">
+                                                    @if(!empty($siteSettings['ppepp_image_url']))
+                                                        <div class="bg-white p-2 rounded border text-center">
+                                                            <a href="{{ $siteSettings['ppepp_image_url'] }}" target="_blank" title="Lihat gambar penuh">
+                                                                <img src="{{ $siteSettings['ppepp_image_url'] }}" alt="Preview Siklus PPEPP" class="img-fluid rounded" style="max-height: 150px; object-fit: contain;">
+                                                            </a>
+                                                            <small class="d-block text-muted mt-1"><code>{{ $siteSettings['ppepp_image_path'] }}</code></small>
+                                                        </div>
+                                                    @else
+                                                        <div class="bg-white p-3 rounded border text-center text-muted small">
+                                                            Belum ada gambar diupload. Saat ini halaman utama menggunakan flowmap kartu PPEPP bawaan.
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-6 form-group mb-3">
                                         <label class="font-weight-bold small">Email Resmi Unit Mutu</label>
-                                        <input type="email" class="form-control form-control-admin" value="pm.fict@horizon.ac.id">
+                                        <input type="email" name="site_email" class="form-control form-control-admin" value="{{ old('site_email', $siteSettings['site_email'] ?? 'pm.fict@horizon.ac.id') }}">
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
                                         <label class="font-weight-bold small">Nomor Telepon / WhatsApp</label>
-                                        <input type="text" class="form-control form-control-admin" value="(0267) 845-8888">
+                                        <input type="text" name="site_phone" class="form-control form-control-admin" value="{{ old('site_phone', $siteSettings['site_phone'] ?? '(0267) 845-8888') }}">
                                     </div>
                                     <div class="col-12 form-group mb-3">
                                         <label class="font-weight-bold small">Alamat Kampus / Gedung FICT</label>
-                                        <input type="text" class="form-control form-control-admin" value="Gedung FICT, Kampus Horizon University Indonesia, Jl. Pangkal Perjuangan By Pass KM. 1, Karawang">
+                                        <input type="text" name="site_address" class="form-control form-control-admin" value="{{ old('site_address', $siteSettings['site_address'] ?? 'Gedung FICT, Kampus Horizon University Indonesia, Jl. Pangkal Perjuangan By Pass KM. 1, Karawang') }}">
                                     </div>
                                     <div class="col-12 form-group mb-3">
                                         <label class="font-weight-bold small">Tautan Google Maps</label>
-                                        <input type="url" class="form-control form-control-admin" value="https://maps.app.goo.gl/DDstLPTdgou3sE1q7">
+                                        <input type="url" name="site_maps_url" class="form-control form-control-admin" value="{{ old('site_maps_url', $siteSettings['site_maps_url'] ?? 'https://maps.app.goo.gl/DDstLPTdgou3sE1q7') }}">
                                     </div>
                                     <div class="col-12 form-group mb-3">
                                         <label class="font-weight-bold small">Visi Penjaminan Mutu FICT</label>
-                                        <textarea class="form-control form-control-admin" rows="3">Menjadi unit penjaminan mutu fakultas yang unggul, profesional, dan berintegritas tinggi dalam mengawal perwujudan budaya mutu Tridharma Perguruan Tinggi di bidang teknologi informasi dan komputasi yang berdaya saing nasional maupun internasional.</textarea>
+                                        <textarea name="site_visi" class="form-control form-control-admin" rows="3">{{ old('site_visi', $siteSettings['site_visi'] ?? 'Menjadi unit penjaminan mutu fakultas yang unggul, profesional, dan berintegritas tinggi dalam mengawal perwujudan budaya mutu Tridharma Perguruan Tinggi di bidang teknologi informasi dan komputasi yang berdaya saing nasional maupun internasional.') }}</textarea>
                                     </div>
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary btn-sm px-4 py-2 font-weight-bold">
@@ -2280,6 +2320,8 @@
             $('#tab-struktur-link').tab('show');
         @elseif(session('active_tab') === 'dokumen' || old('_tab') === 'dokumen')
             $('#tab-dokumen-link').tab('show');
+        @elseif(session('active_tab') === 'settings' || old('_tab') === 'settings')
+            $('#tab-settings-link').tab('show');
         @endif
 
         if (window.location.hash) {
